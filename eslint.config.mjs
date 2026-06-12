@@ -38,5 +38,18 @@ export default tseslint.config(
       ...playwright.configs["flat/recommended"].rules,
     },
   },
+  {
+    files: ["e2e/tests/workbench/**/*.ts", "e2e/tests/**/*.spec.ts"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "NewExpression[callee.name=/^(LoginPage|DashboardPage|OrgSelectionPage|ForecastListPage|ForecastGridPage|CreateForecastModal|AddDriverModal|CopyForecastModal|CompareModal)$/]",
+          message: "Instantiate page objects via PageFactory, not directly.",
+        },
+      ],
+    },
+  },
   prettier,
 );
