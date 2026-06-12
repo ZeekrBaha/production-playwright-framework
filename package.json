@@ -1,0 +1,30 @@
+{
+  "name": "production-playwright-framework",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Production-style Playwright automation framework demonstrated against the Forecast Workbench SUT",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix apps/workbench && npm install --prefix e2e",
+    "ci:install": "npm ci && npm ci --prefix apps/workbench && npm ci --prefix e2e",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck --prefix apps/workbench && npm run typecheck --prefix e2e",
+    "test:unit": "npm test --prefix apps/workbench",
+    "build": "npm run build --prefix apps/workbench",
+    "test:smoke": "npm run test:smoke --prefix e2e",
+    "test:e2e": "npm test --prefix e2e",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run test:unit && npm run build && npm run test:smoke"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.10.4",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "prettier": "^3.8.4",
+    "typescript-eslint": "^8.61.0"
+  }
+}
