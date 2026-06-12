@@ -35,6 +35,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Format check (Prettier)
+        run: npm run format:check
+
       - name: Typecheck (app + e2e)
         run: npm run typecheck
 
@@ -54,8 +57,9 @@ jobs:
         run: npx playwright install --with-deps chromium
         working-directory: e2e
 
-      - name: Playwright e2e tests (full suite)
-        run: npm run test:e2e
+      - name: Playwright e2e tests (visual tests excluded — baselines are platform-specific)
+        run: npx playwright test --grep-invert @visual
+        working-directory: e2e
 
       - name: Audit dependencies (advisory)
         run: |

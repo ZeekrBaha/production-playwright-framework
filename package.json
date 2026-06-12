@@ -15,7 +15,7 @@
     "build": "npm run build --prefix apps/workbench",
     "test:smoke": "npm run test:smoke --prefix e2e",
     "test:e2e": "npm test --prefix e2e",
-    "check": "npm run lint && npm run typecheck && npm run test:unit && npm run build && npm run test:smoke"
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run test:unit && npm run build && npm run test:smoke"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
