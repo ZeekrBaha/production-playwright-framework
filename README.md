@@ -38,7 +38,7 @@ e2e/
     │   └── pages/page-factory.ts   single entry point to all page objects
     └── workbench/                  application layer
         ├── pages/                  one page object per screen/modal (9)
-        └── testcases/              15 spec files, 55 tests
+        └── testcases/              16 spec files, 60 tests
 ```
 
 Deep dives: [framework architecture](docs/framework-architecture.md) ·
@@ -70,7 +70,7 @@ Demo accounts (mock data, not secrets): `ines` (inputter), `ravi`
 ```bash
 npm run install:all                 # installs app + e2e dependencies
 npx playwright install chromium     # first time only (run inside e2e/)
-npm run check                       # typecheck → unit tests → build → smoke
+npm run check                       # lint → format:check → typecheck → unit → build → smoke
 ```
 
 Run the app interactively:
@@ -81,14 +81,16 @@ cd apps/workbench && npm run dev    # http://localhost:5173
 
 ## Test commands
 
-| Command (repo root)  | What it runs                                   |
-| -------------------- | ---------------------------------------------- |
-| `npm run check`      | Full local gate: typecheck, unit, build, smoke |
-| `npm run typecheck`  | `tsc --noEmit` for app and e2e                 |
-| `npm run test:unit`  | 57 Vitest tests on the domain layer            |
-| `npm run build`      | Production Vite build                          |
-| `npm run test:smoke` | `@smoke` paths on desktop + mobile projects    |
-| `npm run test:e2e`   | Full Playwright suite (54 tests, ~7s)          |
+| Command (repo root)    | What it runs                                             |
+| ---------------------- | -------------------------------------------------------- |
+| `npm run check`        | lint, format:check, typecheck, unit, build, smoke        |
+| `npm run lint`         | ESLint across app + e2e                                  |
+| `npm run format:check` | Prettier check                                           |
+| `npm run typecheck`    | `tsc --noEmit` for app and e2e                           |
+| `npm run test:unit`    | 58 Vitest tests on the domain layer                      |
+| `npm run build`        | Production Vite build                                    |
+| `npm run test:smoke`   | `@smoke` paths on desktop + mobile projects              |
+| `npm run test:e2e`     | Full Playwright suite (60 tests, @visual excluded in CI) |
 
 Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 `npm run report`, or any tag slice, e.g.
@@ -107,7 +109,7 @@ Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 - **Project matrix** — desktop and mobile (Pixel 7) Chrome projects sharing
   specs and page objects
 - **Tag taxonomy** — `@smoke` `@regression` `@workflow` `@validation`
-  `@network` `@accessibility` `@mobile`
+  `@network` `@accessibility` `@mobile` `@visual`
 - **Multi-actor flows** — same-context user switching for submit → review →
   approve journeys
 - **Robust locators only** — `getByRole` / `getByLabel` / `getByTestId`;
@@ -117,36 +119,38 @@ Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 
 ## Test coverage map
 
-| Spec                       | Tags              | Covers                                                                 |
-| -------------------------- | ----------------- | ---------------------------------------------------------------------- |
-| `login.spec.ts`            | regression, smoke | Auth, route guarding, sign-out                                         |
-| `dashboard.spec.ts`        | regression, smoke | KPI aggregation, role queues, empty states                             |
-| `forecast-list.spec.ts`    | regression        | Search, status filter, sorting, empty filter state                     |
-| `create-forecast.spec.ts`  | regression, smoke | CRUD, name validation, role permissions                                |
-| `copy-forecast.spec.ts`    | workflow          | Copy semantics: values preserved, DRAFT reset, comment cleared         |
-| `grid-calculation.spec.ts` | regression, smoke | Calculation math, totals roll-up, persistence across reload            |
-| `validation.spec.ts`       | validation, smoke | Cell rules, negative-Net-Sales save block                              |
-| `add-driver.spec.ts`       | regression, smoke | Driver search, add/remove rows, derived math                           |
-| `compare.spec.ts`          | regression        | Cross-scenario deltas, target validation, read-only compare            |
-| `workflow.spec.ts`         | workflow, smoke   | Full submit → approve lifecycle, request-changes loop, guards          |
-| `activity.spec.ts`         | workflow          | Audit events for submit/approve/request-changes                        |
-| `network.spec.ts`          | network           | Save failure keeps edits, busy states, 409 conflict, payload contracts |
-| `accessibility.spec.ts`    | accessibility     | Keyboard-only login, ARIA names, alert announcements                   |
-| `mobile.spec.ts`           | mobile, smoke     | Core journey on a phone viewport                                       |
+| Spec                       | Tags              | Covers                                                                                      |
+| -------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `login.spec.ts`            | regression, smoke | Auth, route guarding, sign-out                                                              |
+| `dashboard.spec.ts`        | regression, smoke | KPI aggregation, role queues, empty states                                                  |
+| `forecast-list.spec.ts`    | regression        | Search, status filter, sorting, empty filter state                                          |
+| `create-forecast.spec.ts`  | regression, smoke | CRUD, name validation, role permissions                                                     |
+| `copy-forecast.spec.ts`    | workflow          | Copy semantics: values preserved, DRAFT reset, comment cleared                              |
+| `grid-calculation.spec.ts` | regression, smoke | Calculation math, totals roll-up, persistence across reload                                 |
+| `validation.spec.ts`       | validation, smoke | Cell rules, negative-Net-Sales save block                                                   |
+| `add-driver.spec.ts`       | regression, smoke | Driver search, add/remove rows, derived math                                                |
+| `compare.spec.ts`          | regression        | Cross-scenario deltas, target validation, read-only compare                                 |
+| `workflow.spec.ts`         | workflow, smoke   | Full submit → approve lifecycle, request-changes loop, guards                               |
+| `activity.spec.ts`         | workflow          | Audit events for submit/approve/request-changes                                             |
+| `network.spec.ts`          | network           | Save failure keeps edits, busy states, 409 conflict, payload contracts                      |
+| `accessibility.spec.ts`    | accessibility     | Keyboard-only login, ARIA names, alert announcements, axe-core scan (dashboard, list, grid) |
+| `mobile.spec.ts`           | mobile, smoke     | Core journey on a phone viewport                                                            |
+| `visual.spec.ts`           | visual            | Screenshot baselines for dashboard, forecast list, approved grid                            |
 
-Plus 57 Vitest unit tests on the pure domain layer (calc, validation,
+Plus 58 Vitest unit tests on the pure domain layer (calc, validation,
 workflow, listing, dashboard, store) — written test-first.
 
 ## CI and reporting
 
-GitHub Actions (`.github/workflows/ci.yml`): install → typecheck → unit
-tests → build → Playwright smoke (desktop + mobile) → HTML report uploaded
-always, traces/videos on failure. `npm run check` mirrors the pipeline
-locally. Details in [docs/ci-and-reporting.md](docs/ci-and-reporting.md).
+GitHub Actions (`.github/workflows/ci.yml`): install → lint → format:check →
+typecheck → unit tests → build → Playwright e2e (57 tests — full suite minus
+3 `@visual`, which use platform-specific baselines) → HTML report uploaded
+always, traces/videos on failure. SHA-pinned actions throughout. `npm run check`
+mirrors the pipeline locally. Details in [docs/ci-and-reporting.md](docs/ci-and-reporting.md).
 
 ## Portfolio / interview talking points
 
-1. **Test pyramid in practice** — 57 fast unit tests own the business rules;
+1. **Test pyramid in practice** — 58 fast unit tests own the business rules;
    e2e owns user journeys and integration.
 2. **Isolation strategy** — per-test seeding via `addInitScript` + per-test
    contexts; why that eliminates flake, ordering bugs, and cleanup code.
@@ -157,19 +161,26 @@ locally. Details in [docs/ci-and-reporting.md](docs/ci-and-reporting.md).
 5. **Multi-role workflow testing** — same-context user switching to share
    app state across actors.
 6. **Suite design** — tags × projects as two orthogonal selection axes.
+7. **Automated accessibility with axe-core** — `@axe-core/playwright` wired
+   into `accessibility.spec.ts` for programmatic WCAG scanning of dashboard,
+   list, and grid; complements manual keyboard and ARIA assertions.
+8. **Visual regression baselines** — `visual.spec.ts` captures screenshot
+   baselines for stable views; `@visual` tag excludes them from CI because
+   baselines are platform-specific (Linux CI vs macOS dev). Strategy: regen
+   baselines in a Docker/Linux environment to make them portable.
 
 A 3-minute walkthrough script lives in [docs/demo-script.md](docs/demo-script.md).
 
 ## Roadmap
 
-Visual smoke for stable views, axe-core scan, API-contract project, nightly
-full-regression workflow, repo extraction. Reasoning and ordering in
+Proper cross-platform visual baselines (Docker/Linux baseline regen),
+`@playwright/test` version bump, CodeQL workflow, nightly full-regression
+run, repo extraction. Reasoning and ordering in
 [docs/roadmap.md](docs/roadmap.md).
 
 ## Note on this folder
 
-This workspace also contains `ibg-testscripts-playwright/` — a legacy
-framework kept locally as a pattern reference. It is gitignored and not part
-of the project; everything above is self-contained in `apps/`, `e2e/`, and
-`docs/`. When publishing, either `git init` here (the `.gitignore` already
-excludes the legacy folder) or copy the four tracked paths into a fresh repo.
+The legacy `ibg-testscripts-playwright/` directory has been relocated to
+`../_legacy/ibg-testscripts-playwright/` outside the repo tree — kept as a
+pattern reference but not part of this project. Everything above is
+self-contained in `apps/`, `e2e/`, and `docs/`.

@@ -58,8 +58,7 @@ jobs:
         working-directory: e2e
 
       - name: Playwright e2e tests (visual tests excluded — baselines are platform-specific)
-        run: npx playwright test --grep-invert @visual
-        working-directory: e2e
+        run: npm run test:ci --prefix e2e
 
       - name: Audit dependencies (advisory)
         run: |

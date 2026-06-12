@@ -13,7 +13,8 @@
     "lint": "eslint tests",
     "lint:fix": "eslint tests --fix",
     "format": "prettier --write tests",
-    "format:check": "prettier --check tests"
+    "format:check": "prettier --check tests",
+    "test:ci": "playwright test --grep-invert @visual"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
