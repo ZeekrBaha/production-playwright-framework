@@ -1,0 +1,17 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+blob-report/
+.auth/
+.env
+.DS_Store
+coverage/
+*.log
+
+# Legacy framework — kept locally for reference, not part of the portfolio repo
+ibg-testscripts-playwright/
+
+# Local-only working notes (reference internal systems)
+ibg-blueprint.md
+docs/reviews/
