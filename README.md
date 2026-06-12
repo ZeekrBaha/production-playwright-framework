@@ -1,5 +1,7 @@
 # Production Playwright Framework
 
+![CI](https://github.com/ZeekrBaha/production-playwright-framework/workflows/CI/badge.svg)
+
 This repository showcases a production-style Playwright automation framework: page objects, fixtures, setup-project authentication, deterministic test data, independent business-rule oracles, smoke/regression tagging, CI-ready commands, and failure artifacts.
 
 The framework is demonstrated against **Forecast Workbench**, a realistic React + TypeScript forecasting application used as the system under test. The app is intentionally local and mock-data driven so the testing architecture can be run anywhere without credentials.
@@ -36,7 +38,7 @@ e2e/
     │   └── pages/page-factory.ts   single entry point to all page objects
     └── workbench/                  application layer
         ├── pages/                  one page object per screen/modal (9)
-        └── testcases/              13 spec files, 54 tests
+        └── testcases/              15 spec files, 55 tests
 ```
 
 Deep dives: [framework architecture](docs/framework-architecture.md) ·
@@ -58,6 +60,10 @@ stateless mock API that gives tests a real network surface.
 
 Demo accounts (mock data, not secrets): `ines` (inputter), `ravi`
 (reviewer), password `demo123`.
+
+> **Security note:** Auth in this SUT is intentionally mock-insecure — credentials
+> checked client-side, sessions stored in `localStorage`. This is by design for an
+> isolated local demo with fake data. Never use this pattern in a real application.
 
 ## Quick start
 
