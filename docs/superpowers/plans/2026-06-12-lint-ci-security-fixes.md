@@ -13,6 +13,7 @@
 ## File Map
 
 ### Created
+
 - `LICENSE` — MIT 2026
 - `.nvmrc` — `22`
 - `eslint.config.mjs` — flat ESLint config, 3 scopes: TS base / workbench React / e2e Playwright
@@ -24,6 +25,7 @@
 - `docs/legacy-ibg-patterns-mapped.md` — pattern mapping table
 
 ### Modified
+
 - `package.json` (root) — add devDeps, add scripts: `lint`, `lint:fix`, `format`, `format:check`, `ci:install`; update `install:all`; extend `check` to run lint first
 - `apps/workbench/package.json` — add scripts; bump `vitest` → `^3`, `vite` → `^6`, `@vitejs/plugin-react` → `^4.4.0`
 - `e2e/package.json` — add scripts; add `@axe-core/playwright` devDep
@@ -41,11 +43,12 @@
 ## Task 1 — Relocate legacy directory, add LICENSE, add .nvmrc
 
 **Files:**
+
 - Shell: `mv ibg-testscripts-playwright ../_legacy/ibg-testscripts-playwright`
 - Create: `LICENSE`
 - Create: `.nvmrc`
 
-- [ ] **Step 1: Create the _legacy destination and move the legacy repo**
+- [ ] **Step 1: Create the \_legacy destination and move the legacy repo**
 
 ```bash
 mkdir -p /Users/baha/Desktop/llm-ai-projects/_legacy
@@ -64,6 +67,7 @@ Expected: the moved directory does NOT appear (it was gitignored). Only the spec
 - [ ] **Step 3: Create LICENSE**
 
 File: `LICENSE`
+
 ```
 MIT License
 
@@ -91,6 +95,7 @@ SOFTWARE.
 - [ ] **Step 4: Create .nvmrc**
 
 File: `.nvmrc`
+
 ```
 22
 ```
@@ -102,6 +107,7 @@ No trailing content after `22`. The CI will read this via `node-version-file: .n
 ## Task 2 — Install ESLint + Prettier, write config files
 
 **Files:**
+
 - Create: `eslint.config.mjs`
 - Create: `.prettierrc`
 - Create: `.prettierignore`
@@ -110,6 +116,7 @@ No trailing content after `22`. The CI will read this via `node-version-file: .n
 - [ ] **Step 1: Install all lint/format packages as root devDependencies**
 
 Run from `/Users/baha/Desktop/llm-ai-projects/IBG` (repo root):
+
 ```bash
 npm install --save-dev \
   eslint \
@@ -129,6 +136,7 @@ This creates `node_modules/` and `package-lock.json` at the root. Both are gitig
 Using `.mjs` (not `.js`) because the root `package.json` lacks `"type": "module"`. ESLint v9 discovers `.mjs` automatically.
 
 File: `eslint.config.mjs`
+
 ```js
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
@@ -159,10 +167,7 @@ export default tseslint.config(
     rules: {
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     },
   },
   {
@@ -178,6 +183,7 @@ export default tseslint.config(
 - [ ] **Step 3: Create .prettierrc**
 
 File: `.prettierrc`
+
 ```json
 {
   "printWidth": 100,
@@ -188,6 +194,7 @@ File: `.prettierrc`
 - [ ] **Step 4: Create .prettierignore**
 
 File: `.prettierignore`
+
 ```
 node_modules/
 dist/
@@ -202,6 +209,7 @@ test-results/
 ## Task 3 — Wire scripts, run auto-fix, commit P0
 
 **Files:**
+
 - Modify: `package.json` (root)
 - Modify: `apps/workbench/package.json`
 - Modify: `e2e/package.json`
@@ -230,6 +238,7 @@ Keep the `"devDependencies"` block exactly as `npm install` wrote it. Only updat
 - [ ] **Step 2: Add lint/format scripts to apps/workbench/package.json**
 
 Add four scripts to `apps/workbench/package.json`'s `"scripts"` section:
+
 ```json
 "lint": "eslint src",
 "lint:fix": "eslint src --fix",
@@ -238,6 +247,7 @@ Add four scripts to `apps/workbench/package.json`'s `"scripts"` section:
 ```
 
 Full scripts section after edit:
+
 ```json
 "scripts": {
   "dev": "vite",
@@ -256,6 +266,7 @@ Full scripts section after edit:
 - [ ] **Step 3: Add lint/format scripts to e2e/package.json**
 
 Add four scripts to `e2e/package.json`'s `"scripts"` section:
+
 ```json
 "lint": "eslint tests",
 "lint:fix": "eslint tests --fix",
@@ -264,6 +275,7 @@ Add four scripts to `e2e/package.json`'s `"scripts"` section:
 ```
 
 Full scripts section after edit:
+
 ```json
 "scripts": {
   "test": "playwright test",
@@ -286,6 +298,7 @@ npm run lint:fix
 ```
 
 Review `git diff` after this. Expect auto-fixes like unused-var suppressions or minor style issues. If `lint:fix` reports errors it couldn't auto-fix, handle them:
+
 - `@typescript-eslint/no-explicit-any` — replace `any` with the correct type or `unknown`
 - `@typescript-eslint/no-unused-vars` — prefix the variable name with `_`
 - Any Playwright rule violation (e.g. `playwright/no-conditional-in-test`) — follow the error message
@@ -344,6 +357,7 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 ## Task 4 — Rewrite CI workflow (P1)
 
 **Files:**
+
 - Modify: `.github/workflows/ci.yml`
 
 - [ ] **Step 1: Look up SHA pins for all four GitHub Actions**
@@ -380,9 +394,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@<CHECKOUT_SHA>  # v4
+      - uses: actions/checkout@<CHECKOUT_SHA> # v4
 
-      - uses: actions/setup-node@<SETUP_NODE_SHA>  # v4
+      - uses: actions/setup-node@<SETUP_NODE_SHA> # v4
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -407,7 +421,7 @@ jobs:
         run: npm run build
 
       - name: Cache Playwright browsers
-        uses: actions/cache@<CACHE_SHA>  # v4
+        uses: actions/cache@<CACHE_SHA> # v4
         with:
           path: ~/.cache/ms-playwright
           key: pw-${{ runner.os }}-${{ hashFiles('e2e/package-lock.json') }}
@@ -427,7 +441,7 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-artifact@<UPLOAD_ARTIFACT_SHA>  # v4
+        uses: actions/upload-artifact@<UPLOAD_ARTIFACT_SHA> # v4
         with:
           name: playwright-report
           path: e2e/playwright-report
@@ -435,7 +449,7 @@ jobs:
 
       - name: Upload test results (traces, screenshots, videos)
         if: failure()
-        uses: actions/upload-artifact@<UPLOAD_ARTIFACT_SHA>  # v4
+        uses: actions/upload-artifact@<UPLOAD_ARTIFACT_SHA> # v4
         with:
           name: test-results
           path: e2e/test-results
@@ -455,6 +469,7 @@ Expected: `YAML OK`.
 ## Task 5 — Bump vitest + vite, add dependabot, .env.example, fix README, commit P1
 
 **Files:**
+
 - Modify: `apps/workbench/package.json`
 - Create: `.github/dependabot.yml`
 - Create: `e2e/.env.example`
@@ -473,6 +488,7 @@ Confirm vitest is ≥ 3.x, vite is ≥ 6.x. Use whatever these commands return (
 - [ ] **Step 2: Bump deps in apps/workbench/package.json devDependencies**
 
 Change these three lines (keep other deps unchanged):
+
 ```json
 "@vitejs/plugin-react": "^4.4.0",
 "vite": "^6.0.0",
@@ -480,6 +496,7 @@ Change these three lines (keep other deps unchanged):
 ```
 
 Then install:
+
 ```bash
 npm install --prefix apps/workbench
 ```
@@ -511,6 +528,7 @@ Expected: 0 vulnerabilities. If any remain, they are in transitives not addresse
 - [ ] **Step 6: Create .github/dependabot.yml**
 
 File: `.github/dependabot.yml`
+
 ```yaml
 version: 2
 updates:
@@ -533,6 +551,7 @@ updates:
 - [ ] **Step 7: Create e2e/.env.example**
 
 File: `e2e/.env.example`
+
 ```
 # Base URL for the system under test.
 # Default matches the Vite dev server; override in CI if the app runs elsewhere.
@@ -552,10 +571,13 @@ Three changes to `README.md`:
 ```
 
 **b)** In the framework architecture code block, change:
+
 ```
 └── testcases/              13 spec files, 54 tests
 ```
+
 to:
+
 ```
 └── testcases/              15 spec files, 55 tests
 ```
@@ -604,6 +626,7 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 ## Task 6 — axe-core accessibility scan (P2, TDD)
 
 **Files:**
+
 - Modify: `e2e/package.json`
 - Modify: `e2e/tests/workbench/testcases/accessibility.spec.ts`
 
@@ -619,11 +642,7 @@ Then add this describe block at the end of the file, after the last existing des
 
 ```typescript
 test.describe("Accessibility — axe scan", { tag: ["@accessibility"] }, () => {
-  test("dashboard has no axe violations", async ({
-    page,
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("dashboard has no axe violations", async ({ page, pageFactory, seedScenarios }) => {
     await seedScenarios([buildScenario({ name: "Axe Dashboard" })]);
     await pageFactory.dashboard().goto();
     await expect(pageFactory.dashboard().heading).toBeVisible();
@@ -631,22 +650,14 @@ test.describe("Accessibility — axe scan", { tag: ["@accessibility"] }, () => {
     expect(results.violations).toEqual([]);
   });
 
-  test("forecast list has no axe violations", async ({
-    page,
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("forecast list has no axe violations", async ({ page, pageFactory, seedScenarios }) => {
     await seedScenarios([buildScenario({ name: "Axe List" })]);
     await pageFactory.forecastList().goto("org-merch");
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
   });
 
-  test("forecast grid has no axe violations", async ({
-    page,
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("forecast grid has no axe violations", async ({ page, pageFactory, seedScenarios }) => {
     const scenario = buildScenario({ name: "Axe Grid" });
     await seedScenarios([scenario]);
     await pageFactory.forecastGrid().goto(scenario.id);
@@ -691,12 +702,14 @@ Expected: all accessibility tests pass (existing 4 + 3 new axe tests = 7 total).
 ## Task 7 — Visual baseline spec (P2)
 
 **Files:**
+
 - Create: `e2e/tests/workbench/testcases/visual.spec.ts`
 - Modify: `docs/testing-strategy.md`
 
 - [ ] **Step 1: Create visual.spec.ts**
 
 File: `e2e/tests/workbench/testcases/visual.spec.ts`
+
 ```typescript
 import { expect } from "@playwright/test";
 import { test } from "../../common/fixtures/test-hook";
@@ -748,22 +761,26 @@ Expected: 3 tests pass with no diff.
 - [ ] **Step 4: Update docs/testing-strategy.md**
 
 **a)** In the tag taxonomy table, add a row:
+
 ```markdown
 | `@visual` | Screenshot baselines for three stable seeded views | Manual (`--grep @visual`) or scheduled |
 ```
 
 **b)** In "What is deliberately not tested with Playwright", remove the line:
+
 ```
 - Visual pixel diffs (roadmap — needs a stable baseline strategy first).
 ```
+
 and replace with:
+
 ```
 - Visual pixel diffs for non-seeded (dynamic) pages — baseline stability requires deterministic seeds, which only stable views have.
 ```
 
 **c)** Add a new section at the end of the file:
 
-```markdown
+````markdown
 ## Visual baselines
 
 Three screenshot tests in `visual.spec.ts` cover stable seeded views: dashboard, forecast list, and approved read-only grid. Baselines are committed next to the spec in `visual.spec.ts-snapshots/` and compared on every full run.
@@ -776,9 +793,11 @@ npx playwright test --grep @visual --update-snapshots --project=desktop-chrome
 git add tests/workbench/testcases/visual.spec.ts-snapshots/
 git commit -m "chore: update visual baselines"
 ```
+````
 
 **Platform note:** Baselines are rendered by Chromium on the machine that generated them. If CI (Linux) produces different renders than local (macOS), regenerate on Linux using a temporary CI step or `act`.
-```
+
+````
 
 ---
 
@@ -855,7 +874,7 @@ export class PageFactory {
     return (this.#compareModal ??= new CompareModal(this.page));
   }
 }
-```
+````
 
 - [ ] **Step 2: Run e2e typecheck to confirm private fields compile**
 
@@ -902,6 +921,7 @@ Expected: 0 errors. All existing specs use `pageFactory.*()`, so no violations e
 ## Task 9 — store.ts shape validation (P2, TDD)
 
 **Files:**
+
 - Modify: `apps/workbench/src/domain/store.test.ts`
 - Modify: `apps/workbench/src/domain/store.ts`
 
@@ -913,10 +933,7 @@ In `apps/workbench/src/domain/store.test.ts`, add this test inside the existing 
 
 ```typescript
 it("falls back to empty arrays when stored values are not arrays", () => {
-  localStorage.setItem(
-    "fw:data",
-    JSON.stringify({ scenarios: "corrupted", activities: null }),
-  );
+  localStorage.setItem("fw:data", JSON.stringify({ scenarios: "corrupted", activities: null }));
   const data = loadData();
   expect(Array.isArray(data.scenarios)).toBe(true);
   expect(Array.isArray(data.activities)).toBe(true);
@@ -976,29 +993,31 @@ Expected: 58 tests pass (57 + 1 new).
 ## Task 10 — Legacy patterns doc, full verification, commit P2, push
 
 **Files:**
+
 - Create: `docs/legacy-ibg-patterns-mapped.md`
 
 - [ ] **Step 1: Create docs/legacy-ibg-patterns-mapped.md**
 
 File: `docs/legacy-ibg-patterns-mapped.md`
+
 ```markdown
 # Legacy IBG Patterns → New Framework Equivalents
 
 Maps patterns from the legacy `ibg-testscripts-playwright` framework (relocated to
 `_legacy/`, not tracked) to their equivalents in this framework.
 
-| Legacy pattern | New-framework equivalent |
-|---|---|
-| Custom base test class with setup/teardown methods | `test.extend` custom fixtures in `tests/common/fixtures/test-hook.ts` — typed, composable, no inheritance |
-| Page object constructed ad-hoc in specs (`new LoginPage(page)`) | `pageFactory` fixture → `PageFactory` — single entry point, lazy-cached, never instantiated in specs |
-| Shared `beforeEach` that logs in for every test | Setup-project storageState (`auth.setup.ts`) — login once per role, state reused via file |
-| Shared data seeded once in `beforeAll` or via a script | `seedScenarios([...])` fixture — per-test `addInitScript`, no shared state, no cleanup code |
-| Hard-coded waits (`page.waitForTimeout(n)`) | Web-first assertions only — `toBeVisible`, `toHaveText`, `toBeEnabled`; zero `waitForTimeout` in suite |
-| Test data defined in test body or shared fixture | `buildScenario()` + independent oracle (`expectedGmv()`, `expectedNetSales()`) in `data-factory.ts` |
-| Network stubs via a separate mock server process | `mock-api.ts` route interception — `failApi` / `delayApi` / `captureApi` over a real Vite HTTP surface |
-| Single browser project | Project matrix: `setup` → `desktop-chrome` + `mobile-chrome` (Pixel 7), tag-driven routing |
-| Manual re-runs for flaky tests | `retries: 2` in CI only; per-test isolation eliminates shared-state flake at the root |
-| HTML report generated post-run manually | CI artifact upload (always) + failure artifacts (traces, videos, screenshots) on failure |
+| Legacy pattern                                                  | New-framework equivalent                                                                                  |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Custom base test class with setup/teardown methods              | `test.extend` custom fixtures in `tests/common/fixtures/test-hook.ts` — typed, composable, no inheritance |
+| Page object constructed ad-hoc in specs (`new LoginPage(page)`) | `pageFactory` fixture → `PageFactory` — single entry point, lazy-cached, never instantiated in specs      |
+| Shared `beforeEach` that logs in for every test                 | Setup-project storageState (`auth.setup.ts`) — login once per role, state reused via file                 |
+| Shared data seeded once in `beforeAll` or via a script          | `seedScenarios([...])` fixture — per-test `addInitScript`, no shared state, no cleanup code               |
+| Hard-coded waits (`page.waitForTimeout(n)`)                     | Web-first assertions only — `toBeVisible`, `toHaveText`, `toBeEnabled`; zero `waitForTimeout` in suite    |
+| Test data defined in test body or shared fixture                | `buildScenario()` + independent oracle (`expectedGmv()`, `expectedNetSales()`) in `data-factory.ts`       |
+| Network stubs via a separate mock server process                | `mock-api.ts` route interception — `failApi` / `delayApi` / `captureApi` over a real Vite HTTP surface    |
+| Single browser project                                          | Project matrix: `setup` → `desktop-chrome` + `mobile-chrome` (Pixel 7), tag-driven routing                |
+| Manual re-runs for flaky tests                                  | `retries: 2` in CI only; per-test isolation eliminates shared-state flake at the root                     |
+| HTML report generated post-run manually                         | CI artifact upload (always) + failure artifacts (traces, videos, screenshots) on failure                  |
 
 The legacy directory has been relocated to `../_legacy/ibg-testscripts-playwright` outside
 the IBG tree. Its patterns informed the architecture decisions above.
@@ -1023,6 +1042,7 @@ test -f LICENSE && test -f .nvmrc && test -f e2e/.env.example && echo "hygiene O
 ```
 
 Expected results:
+
 - `ci:install`: all three packages install from lockfiles, no errors
 - `lint`: 0 errors
 - `prettier --check`: 0 formatting violations
@@ -1071,6 +1091,7 @@ git push origin feature/playwright-framework-and-sut
 ```
 
 Then poll the CI run:
+
 ```bash
 gh run list --repo ZeekrBaha/production-playwright-framework --limit 3
 ```

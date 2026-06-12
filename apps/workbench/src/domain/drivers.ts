@@ -1,14 +1,7 @@
 import type { DriverDef } from "./types";
 
 /** Fiscal months covered by every scenario. */
-export const MONTHS = [
-  "2026-01",
-  "2026-02",
-  "2026-03",
-  "2026-04",
-  "2026-05",
-  "2026-06",
-] as const;
+export const MONTHS = ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"] as const;
 
 export const MONTH_LABELS: Record<string, string> = {
   "2026-01": "Jan 26",
@@ -77,13 +70,7 @@ export const DRIVER_CATALOG: DriverDef[] = [
   },
 ];
 
-export const DEFAULT_VISIBLE_DRIVERS = [
-  "units",
-  "aur",
-  "returns",
-  "gmv",
-  "netSales",
-];
+export const DEFAULT_VISIBLE_DRIVERS = ["units", "aur", "returns", "gmv", "netSales"];
 
 export function driverByKey(key: string): DriverDef {
   const def = DRIVER_CATALOG.find((d) => d.key === key);

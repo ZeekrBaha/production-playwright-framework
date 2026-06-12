@@ -9,8 +9,7 @@ function makeValues(
   returns: number[],
   marketingSpend?: number[],
 ): ScenarioValues {
-  const row = (numbers: number[]) =>
-    Object.fromEntries(MONTHS.map((m, i) => [m, numbers[i] ?? 0]));
+  const row = (numbers: number[]) => Object.fromEntries(MONTHS.map((m, i) => [m, numbers[i] ?? 0]));
   const values: ScenarioValues = {
     units: row(units),
     aur: row(aur),

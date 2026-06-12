@@ -10,7 +10,11 @@
   --color-success: #146c2e;
   --color-warning: #8a5300;
   --radius: 8px;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 * {

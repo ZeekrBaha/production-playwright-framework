@@ -5,16 +5,16 @@ import type { Role, Scenario, WorkflowAction } from "./types";
  *   DRAFT ──submit──▶ IN_REVIEW ──approve──▶ APPROVED
  *                         └──request_changes──▶ CHANGES_REQUESTED ──submit──▶ IN_REVIEW
  */
-const TRANSITIONS: Record<WorkflowAction, { from: Scenario["status"][]; to: Scenario["status"] }> = {
-  submit: { from: ["DRAFT", "CHANGES_REQUESTED"], to: "IN_REVIEW" },
-  approve: { from: ["IN_REVIEW"], to: "APPROVED" },
-  request_changes: { from: ["IN_REVIEW"], to: "CHANGES_REQUESTED" },
-};
+const TRANSITIONS: Record<WorkflowAction, { from: Scenario["status"][]; to: Scenario["status"] }> =
+  {
+    submit: { from: ["DRAFT", "CHANGES_REQUESTED"], to: "IN_REVIEW" },
+    approve: { from: ["IN_REVIEW"], to: "APPROVED" },
+    request_changes: { from: ["IN_REVIEW"], to: "CHANGES_REQUESTED" },
+  };
 
 export function canEditScenario(scenario: Scenario, role: Role): boolean {
   return (
-    role === "inputter" &&
-    (scenario.status === "DRAFT" || scenario.status === "CHANGES_REQUESTED")
+    role === "inputter" && (scenario.status === "DRAFT" || scenario.status === "CHANGES_REQUESTED")
   );
 }
 
@@ -37,9 +37,7 @@ export function applyWorkflowAction(
 ): Scenario {
   const transition = TRANSITIONS[action];
   if (!transition.from.includes(scenario.status)) {
-    throw new Error(
-      `Cannot ${action} a scenario in status ${scenario.status}`,
-    );
+    throw new Error(`Cannot ${action} a scenario in status ${scenario.status}`);
   }
   if (action === "request_changes" && !comment?.trim()) {
     throw new Error("A comment is required when requesting changes");
@@ -47,7 +45,6 @@ export function applyWorkflowAction(
   return {
     ...scenario,
     status: transition.to,
-    reviewComment:
-      action === "request_changes" ? comment!.trim() : null,
+    reviewComment: action === "request_changes" ? comment!.trim() : null,
   };
 }

@@ -29,6 +29,7 @@ File at repo root containing `22`. Pins Node version for local dev and CI (CI wi
 ### 4. Add ESLint + Prettier
 
 **Packages (root devDeps):**
+
 - `eslint` (v9, flat config)
 - `typescript-eslint`
 - `eslint-plugin-playwright`
@@ -38,6 +39,7 @@ File at repo root containing `22`. Pins Node version for local dev and CI (CI wi
 - `eslint-config-prettier`
 
 **Files:**
+
 - `eslint.config.js` at root — flat config with three scopes:
   1. Shared TypeScript base (`**/*.ts`, `**/*.tsx`) — `typescript-eslint` recommended
   2. `apps/workbench/**` — adds `react-hooks/recommended` + `react-refresh/vite`
@@ -46,11 +48,13 @@ File at repo root containing `22`. Pins Node version for local dev and CI (CI wi
 - `.prettierignore` at root — excludes `playwright-report/`, `test-results/`, `dist/`, `.auth/`, `node_modules/`
 
 **Scripts added to all three `package.json` files:**
+
 - Root: `lint`, `lint:fix`, `format`, `format:check`, `ci:install`; extend `check` to run `lint` before `typecheck`
 - `apps/workbench/package.json`: `lint`, `lint:fix`, `format`, `format:check`
 - `e2e/package.json`: `lint`, `lint:fix`, `format`, `format:check`
 
 **`ci:install` script (root):**
+
 ```
 npm ci --prefix apps/workbench && npm ci --prefix e2e
 ```
@@ -66,6 +70,7 @@ After config is in place, run `lint:fix` once to apply mechanical auto-fixes; co
 ### 5. Rewrite .github/workflows/ci.yml
 
 Changes from current state:
+
 - `permissions: contents: read` at workflow level (default token was write-all)
 - `concurrency: { group: ci-${{ github.ref }}, cancel-in-progress: true }` — stacked pushes cancel superseded runs
 - `node-version-file: .nvmrc` replaces hardcoded `node-version: 22`
@@ -83,6 +88,7 @@ Changes from current state:
 ### 6. Bump workbench dependencies
 
 In `apps/workbench/package.json`:
+
 - `vitest` → `^3` (fixes critical "arbitrary file read/exec via Vitest UI server" CVE)
 - `vite` → `^6` (fixes path-traversal moderate vuln)
 - `@vitejs/plugin-react` → matching version for Vite 6
@@ -94,6 +100,7 @@ Run `npm run test:unit` and `npm run build` after bump to confirm green. Verify 
 ### 7. Add .github/dependabot.yml
 
 Weekly Dependabot PRs for:
+
 - npm at `/apps/workbench`
 - npm at `/e2e`
 - github-actions at `/`
@@ -101,6 +108,7 @@ Weekly Dependabot PRs for:
 ### 8. Add e2e/.env.example
 
 Documents contract for environment variables:
+
 ```
 BASE_URL=http://localhost:5173
 # Add future variables here
@@ -128,6 +136,7 @@ Install `@axe-core/playwright` as an e2e devDep. Add an axe scan block to `acces
 ### 11. Visual baseline spec
 
 Add `visual.spec.ts` in `e2e/tests/workbench/testcases/` with `toHaveScreenshot` for three stable seeded views:
+
 - Dashboard with healthy scenario data
 - Forecast list (populated)
 - Approved read-only grid
@@ -137,10 +146,12 @@ Tag `@visual`. Add `playwright-snapshots/` to `.gitignore`. Add a paragraph to `
 ### 12. PageFactory lazy memoization
 
 In `e2e/tests/common/pages/page-factory.ts`: cache each page object with a private field pattern:
+
 ```typescript
 #dashboard?: DashboardPage;
 dashboard() { return (this.#dashboard ??= new DashboardPage(this.page)); }
 ```
+
 No behavior change; eliminates redundant allocations in long multi-step flows.
 
 ### 13. Lint rule: forbid ad-hoc page object instantiation
@@ -154,6 +165,7 @@ In `apps/workbench/src/domain/store.ts` `loadData()`: if parsed object from loca
 ### 15. docs/legacy-ibg-patterns-mapped.md
 
 Mapping table: legacy `ibg-testscripts-playwright` pattern → new-framework equivalent. Examples:
+
 - Old fixture instantiation style → `test.extend` custom fixtures
 - Old page object construction → PageFactory
 - Old data helpers → data-factory + oracle

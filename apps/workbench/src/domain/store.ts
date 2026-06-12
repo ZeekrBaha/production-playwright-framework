@@ -1,13 +1,7 @@
 import { DEFAULT_VISIBLE_DRIVERS, MONTHS } from "./drivers";
 import { recalculate } from "./calc";
 import { seedAppData, USERS } from "./seed";
-import type {
-  ActivityEvent,
-  AppData,
-  Scenario,
-  ScenarioType,
-  User,
-} from "./types";
+import type { ActivityEvent, AppData, Scenario, ScenarioType, User } from "./types";
 
 const DATA_KEY = "fw:data";
 const SESSION_KEY = "fw:session";
@@ -104,11 +98,7 @@ export function deleteScenario(id: string): void {
  * Clones a scenario into a new DRAFT owned by the actor.
  * Values and visible drivers are preserved; the review comment is cleared.
  */
-export function copyScenario(
-  sourceId: string,
-  newName: string,
-  actor: string,
-): Scenario {
+export function copyScenario(sourceId: string, newName: string, actor: string): Scenario {
   const data = loadData();
   const source = data.scenarios.find((s) => s.id === sourceId);
   if (!source) {
@@ -133,9 +123,7 @@ export function copyScenario(
 
 let activityCounter = 0;
 
-export function recordActivity(
-  event: Omit<ActivityEvent, "id" | "at">,
-): ActivityEvent {
+export function recordActivity(event: Omit<ActivityEvent, "id" | "at">): ActivityEvent {
   const data = loadData();
   activityCounter += 1;
   const full: ActivityEvent = {
@@ -175,9 +163,7 @@ export function getSession(): User | null {
 }
 
 export function login(username: string, password: string): User {
-  const account = USERS.find(
-    (u) => u.username === username.trim().toLowerCase(),
-  );
+  const account = USERS.find((u) => u.username === username.trim().toLowerCase());
   if (!account || account.password !== password) {
     throw new Error("Invalid username or password");
   }

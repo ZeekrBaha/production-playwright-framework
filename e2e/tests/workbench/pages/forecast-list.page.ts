@@ -58,8 +58,6 @@ export class ForecastListPage {
 
   async deleteForecast(name: string) {
     this.page.once("dialog", (dialog) => dialog.accept());
-    await this.rowByName(name)
-      .getByRole("button", { name: "Delete" })
-      .click();
+    await this.rowByName(name).getByRole("button", { name: "Delete" }).click();
   }
 }

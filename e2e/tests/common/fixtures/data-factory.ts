@@ -4,22 +4,11 @@
  * instead of trusting the application's calculation engine.
  */
 
-export const MONTHS = [
-  "2026-01",
-  "2026-02",
-  "2026-03",
-  "2026-04",
-  "2026-05",
-  "2026-06",
-] as const;
+export const MONTHS = ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"] as const;
 
 export type Month = (typeof MONTHS)[number];
 
-export type ScenarioStatus =
-  | "DRAFT"
-  | "IN_REVIEW"
-  | "APPROVED"
-  | "CHANGES_REQUESTED";
+export type ScenarioStatus = "DRAFT" | "IN_REVIEW" | "APPROVED" | "CHANGES_REQUESTED";
 
 export interface SeedScenario {
   id: string;
@@ -57,11 +46,7 @@ export function expectedGmv(units: number, aur: number): number {
   return roundMoney(units * aur);
 }
 
-export function expectedNetSales(
-  units: number,
-  aur: number,
-  returns: number,
-): number {
+export function expectedNetSales(units: number, aur: number, returns: number): number {
   return roundMoney(expectedGmv(units, aur) - returns);
 }
 
@@ -142,12 +127,7 @@ export function buildScenario(overrides: {
     const marketing = inputs.marketingSpend?.[i] ?? 0;
     values.gmv[month] = expectedGmv(units, aur);
     values.netSales[month] = expectedNetSales(units, aur, returns);
-    values.contributionMargin[month] = expectedContributionMargin(
-      units,
-      aur,
-      returns,
-      marketing,
-    );
+    values.contributionMargin[month] = expectedContributionMargin(units, aur, returns, marketing);
   });
 
   return {

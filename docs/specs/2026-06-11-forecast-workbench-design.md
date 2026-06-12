@@ -21,7 +21,7 @@ IBG/
 ```
 
 `ibg-testscripts-playwright/` (the legacy framework) is left untouched and will
-be removed by the repo owner later. Nothing new depends on it; its *patterns*
+be removed by the repo owner later. Nothing new depends on it; its _patterns_
 (custom test-hook fixture, PageFactory, setup projects with storageState,
 JSON test data, tagged tests) are re-implemented cleanly in `e2e/`.
 
@@ -66,10 +66,10 @@ DRAFT ──submit──▶ IN_REVIEW ──approve──▶ APPROVED (read-only
 
 ### Roles & permissions (mock auth)
 
-| User    | Role     | Can                                            |
-|---------|----------|------------------------------------------------|
-| ines    | inputter | create/edit/delete DRAFT & CHANGES_REQUESTED, submit |
-| ravi    | reviewer | open IN_REVIEW read-only, approve / request changes |
+| User | Role     | Can                                                  |
+| ---- | -------- | ---------------------------------------------------- |
+| ines | inputter | create/edit/delete DRAFT & CHANGES_REQUESTED, submit |
+| ravi | reviewer | open IN_REVIEW read-only, approve / request changes  |
 
 Password for all mock users: `demo123` (mock data, documented, not a secret).
 Session stored in `localStorage` (`fw:session`); app data in `fw:data`,

@@ -39,9 +39,7 @@ export function CopyForecastModal({ source, existingNames, onCopy, onCancel }: P
         onSubmit={handleSubmit}
       >
         <h2 id="copy-forecast-title">Copy forecast</h2>
-        <p className="muted">
-          Copying “{source.name}”. The copy starts as a new draft.
-        </p>
+        <p className="muted">Copying “{source.name}”. The copy starts as a new draft.</p>
         {error && (
           <div className="banner banner-error" role="alert">
             {error}
@@ -49,12 +47,7 @@ export function CopyForecastModal({ source, existingNames, onCopy, onCancel }: P
         )}
         <div className="field">
           <label htmlFor="copy-name">New forecast name</label>
-          <input
-            id="copy-name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-          />
+          <input id="copy-name" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
         </div>
         <div className="modal-actions">
           <button type="button" className="btn" onClick={onCancel} disabled={busy}>

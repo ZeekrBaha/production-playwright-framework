@@ -1,9 +1,7 @@
 import { driverByKey, MONTH_LABELS, MONTHS } from "./drivers";
 import type { ScenarioValues } from "./types";
 
-export type ParseResult =
-  | { ok: true; value: number }
-  | { ok: false; error: string };
+export type ParseResult = { ok: true; value: number } | { ok: false; error: string };
 
 /**
  * Validates raw text typed into a grid cell for the given input driver.
@@ -42,19 +40,14 @@ export function validateScenarioForSave(values: ScenarioValues): string[] {
   for (const month of MONTHS) {
     const netSales = values.netSales?.[month] ?? 0;
     if (netSales < 0) {
-      errors.push(
-        `Net Sales is negative in ${MONTH_LABELS[month]} — returns exceed GMV`,
-      );
+      errors.push(`Net Sales is negative in ${MONTH_LABELS[month]} — returns exceed GMV`);
     }
   }
   return errors;
 }
 
 /** Returns an error message, or null when the name is valid. */
-export function validateScenarioName(
-  name: string,
-  existingNames: string[],
-): string | null {
+export function validateScenarioName(name: string, existingNames: string[]): string | null {
   const trimmed = name.trim();
   if (trimmed === "") {
     return "Forecast name is required";

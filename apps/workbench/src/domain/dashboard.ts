@@ -17,9 +17,7 @@ export function computeDashboardStats(scenarios: Scenario[]): DashboardStats {
     scenarios.filter((s) => s.status === status).length;
 
   const sumDriver = (driverKey: string) =>
-    Math.round(
-      scenarios.reduce((sum, s) => sum + rowTotal(s.values, driverKey), 0) * 100,
-    ) / 100;
+    Math.round(scenarios.reduce((sum, s) => sum + rowTotal(s.values, driverKey), 0) * 100) / 100;
 
   return {
     total: scenarios.length,

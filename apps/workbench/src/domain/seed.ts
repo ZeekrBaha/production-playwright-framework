@@ -40,11 +40,7 @@ function monthRow(numbers: number[]): Record<string, number> {
   return Object.fromEntries(MONTHS.map((m, i) => [m, numbers[i] ?? 0]));
 }
 
-function seedValues(
-  units: number[],
-  aur: number[],
-  returns: number[],
-): ScenarioValues {
+function seedValues(units: number[], aur: number[], returns: number[]): ScenarioValues {
   return recalculate({
     units: monthRow(units),
     aur: monthRow(aur),

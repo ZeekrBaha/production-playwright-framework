@@ -1,16 +1,7 @@
 import { expect, test } from "../../common/fixtures/test-hook";
 import { USERS } from "../../common/fixtures/auth";
-import {
-  API_ROUTES,
-  captureApi,
-  delayApi,
-  failApi,
-} from "../../common/api/mock-api";
-import {
-  asCurrency,
-  buildScenario,
-  expectedGmv,
-} from "../../common/fixtures/data-factory";
+import { API_ROUTES, captureApi, delayApi, failApi } from "../../common/api/mock-api";
+import { asCurrency, buildScenario, expectedGmv } from "../../common/fixtures/data-factory";
 
 test.describe("Network behavior", { tag: ["@network", "@regression"] }, () => {
   test("a failed save shows an error and keeps the user's edits", async ({
@@ -52,9 +43,7 @@ test.describe("Network behavior", { tag: ["@network", "@regression"] }, () => {
     await expect(busyButton).toBeVisible();
     await expect(busyButton).toBeDisabled();
 
-    await expect(grid.value("gmv", "2026-01")).toHaveText(
-      asCurrency(expectedGmv(200, 10)),
-    );
+    await expect(grid.value("gmv", "2026-01")).toHaveText(asCurrency(expectedGmv(200, 10)));
   });
 
   test("a failed calculation is reported and leaves values unchanged", async ({
@@ -72,12 +61,8 @@ test.describe("Network behavior", { tag: ["@network", "@regression"] }, () => {
     await failApi(page, API_ROUTES.action("calculate"), 500, "engine down");
     await grid.calculate();
 
-    await expect(grid.banner).toContainText(
-      "Calculation failed — please try again",
-    );
-    await expect(grid.value("gmv", "2026-01")).toHaveText(
-      asCurrency(expectedGmv(100, 10)),
-    );
+    await expect(grid.banner).toContainText("Calculation failed — please try again");
+    await expect(grid.value("gmv", "2026-01")).toHaveText(asCurrency(expectedGmv(100, 10)));
   });
 
   test("a server-side name conflict surfaces in the create dialog", async ({

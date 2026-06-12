@@ -69,10 +69,7 @@ describe("queueFor", () => {
   ];
 
   it("inputter queue contains drafts and change requests", () => {
-    expect(queueFor(scenarios, "inputter").map((s) => s.id)).toEqual([
-      "a",
-      "c",
-    ]);
+    expect(queueFor(scenarios, "inputter").map((s) => s.id)).toEqual(["a", "c"]);
   });
 
   it("reviewer queue contains forecasts in review", () => {

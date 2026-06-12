@@ -11,33 +11,12 @@ import { AddDriverModal } from "../components/AddDriverModal";
 import { CompareModal } from "../components/CompareModal";
 import { StatusBadge } from "../components/StatusBadge";
 import { recalculate, rowTotal } from "../domain/calc";
-import {
-  driverByKey,
-  MONTH_LABELS,
-  MONTHS,
-} from "../domain/drivers";
+import { driverByKey, MONTH_LABELS, MONTHS } from "../domain/drivers";
 import { ORGANISATIONS } from "../domain/seed";
-import {
-  getScenario,
-  getSession,
-  listActivities,
-  updateScenario,
-} from "../domain/store";
-import {
-  parseCellInput,
-  validateScenarioForSave,
-} from "../domain/validation";
-import {
-  canEditScenario,
-  canReviewScenario,
-  canSubmitScenario,
-} from "../domain/workflow";
-import type {
-  ActivityType,
-  DriverDef,
-  Scenario,
-  ScenarioValues,
-} from "../domain/types";
+import { getScenario, getSession, listActivities, updateScenario } from "../domain/store";
+import { parseCellInput, validateScenarioForSave } from "../domain/validation";
+import { canEditScenario, canReviewScenario, canSubmitScenario } from "../domain/workflow";
+import type { ActivityType, DriverDef, Scenario, ScenarioValues } from "../domain/types";
 
 const ACTIVITY_LABELS: Record<ActivityType, string> = {
   created: "created the forecast",
@@ -113,9 +92,7 @@ export function ForecastGridPage() {
    */
   function parseAndRecalculate(current: Scenario): ScenarioValues | null {
     const errors: CellErrors = {};
-    const nextValues: ScenarioValues = JSON.parse(
-      JSON.stringify(current.values),
-    );
+    const nextValues: ScenarioValues = JSON.parse(JSON.stringify(current.values));
     let hasErrors = false;
 
     for (const [driverKey, months] of Object.entries(cellText)) {
@@ -259,11 +236,7 @@ export function ForecastGridPage() {
     }
     setBusy("request");
     try {
-      const updated = await requestChangesApi(
-        scenario!,
-        reviewComment,
-        session!.username,
-      );
+      const updated = await requestChangesApi(scenario!, reviewComment, session!.username);
       applySaved(updated, "Changes requested");
       setReviewComment("");
     } catch {
@@ -288,8 +261,7 @@ export function ForecastGridPage() {
     <section>
       <p className="muted">
         <Link to="/orgs">Organisations</Link> /{" "}
-        <Link to={`/orgs/${scenario.orgId}`}>{org?.name ?? scenario.orgId}</Link>{" "}
-        / {scenario.name}
+        <Link to={`/orgs/${scenario.orgId}`}>{org?.name ?? scenario.orgId}</Link> / {scenario.name}
       </p>
 
       <div className="toolbar">
@@ -301,11 +273,7 @@ export function ForecastGridPage() {
           </span>
         )}
         <span className="spacer" />
-        <button
-          type="button"
-          className="btn"
-          onClick={() => setShowCompare(true)}
-        >
+        <button type="button" className="btn" onClick={() => setShowCompare(true)}>
           Compare
         </button>
         {editable && (
@@ -326,12 +294,7 @@ export function ForecastGridPage() {
             >
               {busy === "calculate" ? "Calculating…" : "Calculate"}
             </button>
-            <button
-              type="button"
-              className="btn"
-              disabled={busy !== null}
-              onClick={handleSave}
-            >
+            <button type="button" className="btn" disabled={busy !== null} onClick={handleSave}>
               {busy === "save" ? "Saving…" : "Save"}
             </button>
             {canSubmitScenario(scenario, session.role) && (
@@ -361,10 +324,7 @@ export function ForecastGridPage() {
       )}
 
       {scenario.status === "CHANGES_REQUESTED" && scenario.reviewComment && (
-        <div
-          className="banner banner-error"
-          data-testid="review-comment-banner"
-        >
+        <div className="banner banner-error" data-testid="review-comment-banner">
           Reviewer requested changes: “{scenario.reviewComment}”
         </div>
       )}
@@ -404,9 +364,7 @@ export function ForecastGridPage() {
                           data-testid={`cell-${driverKey}-${month}`}
                           aria-invalid={Boolean(cellErrors[driverKey]?.[month])}
                           value={cellText[driverKey]?.[month] ?? ""}
-                          onChange={(e) =>
-                            handleCellChange(driverKey, month, e.target.value)
-                          }
+                          onChange={(e) => handleCellChange(driverKey, month, e.target.value)}
                         />
                         {cellErrors[driverKey]?.[month] && (
                           <div
@@ -498,9 +456,7 @@ export function ForecastGridPage() {
         />
       )}
 
-      {showCompare && (
-        <CompareModal scenario={scenario} onClose={() => setShowCompare(false)} />
-      )}
+      {showCompare && <CompareModal scenario={scenario} onClose={() => setShowCompare(false)} />}
     </section>
   );
 }

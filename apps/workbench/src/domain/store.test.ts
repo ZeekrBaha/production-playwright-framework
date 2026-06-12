@@ -28,8 +28,7 @@ class LocalStorageStub {
 }
 
 beforeEach(() => {
-  (globalThis as Record<string, unknown>).localStorage =
-    new LocalStorageStub();
+  (globalThis as Record<string, unknown>).localStorage = new LocalStorageStub();
 });
 
 describe("loadData", () => {

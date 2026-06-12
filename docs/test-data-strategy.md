@@ -12,13 +12,13 @@ referenced through the returned object, never hardcoded.
 
 ## Named presets (test states)
 
-Specs reference inputs by *meaning*, not by raw numbers:
+Specs reference inputs by _meaning_, not by raw numbers:
 
-| Preset | Meaning |
-|---|---|
-| `SCENARIO_PRESETS.healthy` | Passes every business rule (units 100 × AUR 10 − returns 50) |
-| `SCENARIO_PRESETS.ramping` | Month-over-month growth — totals/sorting assertions |
-| `SCENARIO_PRESETS.negativeNetSales` | Returns exceed GMV — Save must be blocked |
+| Preset                              | Meaning                                                      |
+| ----------------------------------- | ------------------------------------------------------------ |
+| `SCENARIO_PRESETS.healthy`          | Passes every business rule (units 100 × AUR 10 − returns 50) |
+| `SCENARIO_PRESETS.ramping`          | Month-over-month growth — totals/sorting assertions          |
+| `SCENARIO_PRESETS.negativeNetSales` | Returns exceed GMV — Save must be blocked                    |
 
 ## Personas
 

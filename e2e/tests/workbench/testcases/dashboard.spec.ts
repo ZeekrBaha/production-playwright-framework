@@ -10,16 +10,12 @@ import {
 } from "../../common/fixtures/data-factory";
 
 function gmvTotal(inputs: ScenarioInputs): number {
-  return inputs.units.reduce(
-    (sum, units, i) => sum + expectedGmv(units, inputs.aur[i]),
-    0,
-  );
+  return inputs.units.reduce((sum, units, i) => sum + expectedGmv(units, inputs.aur[i]), 0);
 }
 
 function netSalesTotal(inputs: ScenarioInputs): number {
   return inputs.units.reduce(
-    (sum, units, i) =>
-      sum + expectedNetSales(units, inputs.aur[i], inputs.returns[i]),
+    (sum, units, i) => sum + expectedNetSales(units, inputs.aur[i], inputs.returns[i]),
     0,
   );
 }
@@ -49,21 +45,13 @@ test.describe("Dashboard", { tag: "@regression" }, () => {
       const expectedGmvSum =
         gmvTotal(SCENARIO_PRESETS.healthy) + gmvTotal(SCENARIO_PRESETS.ramping);
       const expectedNetSum =
-        netSalesTotal(SCENARIO_PRESETS.healthy) +
-        netSalesTotal(SCENARIO_PRESETS.ramping);
-      await expect(dashboard.cardValue("card-gmv")).toHaveText(
-        asCurrency(expectedGmvSum),
-      );
-      await expect(dashboard.cardValue("card-net-sales")).toHaveText(
-        asCurrency(expectedNetSum),
-      );
+        netSalesTotal(SCENARIO_PRESETS.healthy) + netSalesTotal(SCENARIO_PRESETS.ramping);
+      await expect(dashboard.cardValue("card-gmv")).toHaveText(asCurrency(expectedGmvSum));
+      await expect(dashboard.cardValue("card-net-sales")).toHaveText(asCurrency(expectedNetSum));
     },
   );
 
-  test("shows an empty state when no forecasts exist", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("shows an empty state when no forecasts exist", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios([]);
     const dashboard = pageFactory.dashboard();
     await dashboard.goto();

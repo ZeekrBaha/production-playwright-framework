@@ -75,14 +75,14 @@ cd apps/workbench && npm run dev    # http://localhost:5173
 
 ## Test commands
 
-| Command (repo root) | What it runs |
-|---|---|
-| `npm run check` | Full local gate: typecheck, unit, build, smoke |
-| `npm run typecheck` | `tsc --noEmit` for app and e2e |
-| `npm run test:unit` | 57 Vitest tests on the domain layer |
-| `npm run build` | Production Vite build |
-| `npm run test:smoke` | `@smoke` paths on desktop + mobile projects |
-| `npm run test:e2e` | Full Playwright suite (54 tests, ~7s) |
+| Command (repo root)  | What it runs                                   |
+| -------------------- | ---------------------------------------------- |
+| `npm run check`      | Full local gate: typecheck, unit, build, smoke |
+| `npm run typecheck`  | `tsc --noEmit` for app and e2e                 |
+| `npm run test:unit`  | 57 Vitest tests on the domain layer            |
+| `npm run build`      | Production Vite build                          |
+| `npm run test:smoke` | `@smoke` paths on desktop + mobile projects    |
+| `npm run test:e2e`   | Full Playwright suite (54 tests, ~7s)          |
 
 Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 `npm run report`, or any tag slice, e.g.
@@ -111,22 +111,22 @@ Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 
 ## Test coverage map
 
-| Spec | Tags | Covers |
-|---|---|---|
-| `login.spec.ts` | regression, smoke | Auth, route guarding, sign-out |
-| `dashboard.spec.ts` | regression, smoke | KPI aggregation, role queues, empty states |
-| `forecast-list.spec.ts` | regression | Search, status filter, sorting, empty filter state |
-| `create-forecast.spec.ts` | regression, smoke | CRUD, name validation, role permissions |
-| `copy-forecast.spec.ts` | workflow | Copy semantics: values preserved, DRAFT reset, comment cleared |
-| `grid-calculation.spec.ts` | regression, smoke | Calculation math, totals roll-up, persistence across reload |
-| `validation.spec.ts` | validation, smoke | Cell rules, negative-Net-Sales save block |
-| `add-driver.spec.ts` | regression, smoke | Driver search, add/remove rows, derived math |
-| `compare.spec.ts` | regression | Cross-scenario deltas, target validation, read-only compare |
-| `workflow.spec.ts` | workflow, smoke | Full submit → approve lifecycle, request-changes loop, guards |
-| `activity.spec.ts` | workflow | Audit events for submit/approve/request-changes |
-| `network.spec.ts` | network | Save failure keeps edits, busy states, 409 conflict, payload contracts |
-| `accessibility.spec.ts` | accessibility | Keyboard-only login, ARIA names, alert announcements |
-| `mobile.spec.ts` | mobile, smoke | Core journey on a phone viewport |
+| Spec                       | Tags              | Covers                                                                 |
+| -------------------------- | ----------------- | ---------------------------------------------------------------------- |
+| `login.spec.ts`            | regression, smoke | Auth, route guarding, sign-out                                         |
+| `dashboard.spec.ts`        | regression, smoke | KPI aggregation, role queues, empty states                             |
+| `forecast-list.spec.ts`    | regression        | Search, status filter, sorting, empty filter state                     |
+| `create-forecast.spec.ts`  | regression, smoke | CRUD, name validation, role permissions                                |
+| `copy-forecast.spec.ts`    | workflow          | Copy semantics: values preserved, DRAFT reset, comment cleared         |
+| `grid-calculation.spec.ts` | regression, smoke | Calculation math, totals roll-up, persistence across reload            |
+| `validation.spec.ts`       | validation, smoke | Cell rules, negative-Net-Sales save block                              |
+| `add-driver.spec.ts`       | regression, smoke | Driver search, add/remove rows, derived math                           |
+| `compare.spec.ts`          | regression        | Cross-scenario deltas, target validation, read-only compare            |
+| `workflow.spec.ts`         | workflow, smoke   | Full submit → approve lifecycle, request-changes loop, guards          |
+| `activity.spec.ts`         | workflow          | Audit events for submit/approve/request-changes                        |
+| `network.spec.ts`          | network           | Save failure keeps edits, busy states, 409 conflict, payload contracts |
+| `accessibility.spec.ts`    | accessibility     | Keyboard-only login, ARIA names, alert announcements                   |
+| `mobile.spec.ts`           | mobile, smoke     | Core journey on a phone viewport                                       |
 
 Plus 57 Vitest unit tests on the pure domain layer (calc, validation,
 workflow, listing, dashboard, store) — written test-first.

@@ -44,9 +44,9 @@ setup ──▶ desktop-chrome   (all specs except @mobile)
 
 ## Fixtures (test.extend)
 
-| Fixture | Purpose |
-|---|---|
-| `pageFactory` | Lazily constructs page objects bound to the test's page |
+| Fixture         | Purpose                                                                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageFactory`   | Lazily constructs page objects bound to the test's page                                                                                       |
 | `seedScenarios` | Injects exactly the scenarios a test needs into the app's store before page load (one-shot `addInitScript`, so in-test saves survive reloads) |
 
 Per-test browser contexts + per-test seeded data = no shared mutable state,

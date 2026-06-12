@@ -8,10 +8,7 @@ import {
 } from "../../common/fixtures/data-factory";
 
 function gmvTotal(inputs: ScenarioInputs): number {
-  return inputs.units.reduce(
-    (sum, units, i) => sum + expectedGmv(units, inputs.aur[i]),
-    0,
-  );
+  return inputs.units.reduce((sum, units, i) => sum + expectedGmv(units, inputs.aur[i]), 0);
 }
 
 test.describe("Scenario comparison", { tag: "@regression" }, () => {
@@ -43,10 +40,7 @@ test.describe("Scenario comparison", { tag: "@regression" }, () => {
     await expect(modal.delta("gmv")).toHaveText(asCurrency(thisGmv - otherGmv));
   });
 
-  test("requires picking a comparison target", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("requires picking a comparison target", async ({ pageFactory, seedScenarios }) => {
     const planA = buildScenario({ name: "Plan A" });
     await seedScenarios([planA, buildScenario({ name: "Plan B" })]);
 
@@ -59,10 +53,7 @@ test.describe("Scenario comparison", { tag: "@regression" }, () => {
     await expect(modal.errorAlert).toHaveText("Select a forecast to compare");
   });
 
-  test("approved forecasts can be compared read-only", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("approved forecasts can be compared read-only", async ({ pageFactory, seedScenarios }) => {
     const approved = buildScenario({ name: "Locked Plan", status: "APPROVED" });
     await seedScenarios([approved, buildScenario({ name: "Open Plan" })]);
 

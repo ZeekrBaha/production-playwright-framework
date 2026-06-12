@@ -66,11 +66,7 @@ describe("filterAndSortScenarios", () => {
       type: "ALL",
       sort: "name",
     });
-    expect(result.map((s) => s.name)).toEqual([
-      "Alpha Plan",
-      "beta budget",
-      "Gamma Push",
-    ]);
+    expect(result.map((s) => s.name)).toEqual(["Alpha Plan", "beta budget", "Gamma Push"]);
   });
 
   it("sorts by most recently updated first", () => {
@@ -80,11 +76,7 @@ describe("filterAndSortScenarios", () => {
       type: "ALL",
       sort: "updated",
     });
-    expect(result.map((s) => s.name)).toEqual([
-      "Alpha Plan",
-      "Gamma Push",
-      "beta budget",
-    ]);
+    expect(result.map((s) => s.name)).toEqual(["Alpha Plan", "Gamma Push", "beta budget"]);
   });
 
   it("sorts by workflow status order", () => {
@@ -95,11 +87,7 @@ describe("filterAndSortScenarios", () => {
       sort: "status",
     });
     // DRAFT → IN_REVIEW → CHANGES_REQUESTED → APPROVED
-    expect(result.map((s) => s.name)).toEqual([
-      "Alpha Plan",
-      "Gamma Push",
-      "beta budget",
-    ]);
+    expect(result.map((s) => s.name)).toEqual(["Alpha Plan", "Gamma Push", "beta budget"]);
   });
 
   it("returns an empty list when nothing matches", () => {

@@ -2,10 +2,10 @@
 
 ## Test pyramid
 
-| Level | Tool | Count | What it proves |
-|---|---|---|---|
-| Unit (domain) | Vitest | 57 | Business rules: calculation, validation, workflow transitions, listing/aggregation, store behavior |
-| E2E (user journeys) | Playwright | 54 | The UI wires those rules into real user-visible behavior, across roles and viewports |
+| Level               | Tool       | Count | What it proves                                                                                     |
+| ------------------- | ---------- | ----- | -------------------------------------------------------------------------------------------------- |
+| Unit (domain)       | Vitest     | 57    | Business rules: calculation, validation, workflow transitions, listing/aggregation, store behavior |
+| E2E (user journeys) | Playwright | 54    | The UI wires those rules into real user-visible behavior, across roles and viewports               |
 
 Business rules are proven once, fast, at the unit level (the app's domain
 layer is pure TypeScript, written test-first). Playwright specs assert
@@ -15,15 +15,15 @@ trusting the app's own output.
 
 ## Tag taxonomy
 
-| Tag | Meaning | When it runs |
-|---|---|---|
-| `@smoke` | Critical-path gate: login, create, calculate, full approval lifecycle, dashboard, mobile journey | Every CI run (`npm run test:smoke`) |
-| `@regression` | Full behavioral coverage | Full suite runs |
-| `@workflow` | Multi-step, multi-actor business processes | Subset selection |
-| `@validation` | Input and business-rule validation | Subset selection |
-| `@network` | Mocked API behavior: failures, latency, conflicts, payload contracts | Subset selection |
-| `@accessibility` | Keyboard operability + ARIA semantics | Subset selection |
-| `@mobile` | Responsive coverage — routed to the `mobile-chrome` project | Mobile project only |
+| Tag              | Meaning                                                                                          | When it runs                        |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------- |
+| `@smoke`         | Critical-path gate: login, create, calculate, full approval lifecycle, dashboard, mobile journey | Every CI run (`npm run test:smoke`) |
+| `@regression`    | Full behavioral coverage                                                                         | Full suite runs                     |
+| `@workflow`      | Multi-step, multi-actor business processes                                                       | Subset selection                    |
+| `@validation`    | Input and business-rule validation                                                               | Subset selection                    |
+| `@network`       | Mocked API behavior: failures, latency, conflicts, payload contracts                             | Subset selection                    |
+| `@accessibility` | Keyboard operability + ARIA semantics                                                            | Subset selection                    |
+| `@mobile`        | Responsive coverage — routed to the `mobile-chrome` project                                      | Mobile project only                 |
 
 Selection examples:
 
@@ -40,7 +40,7 @@ npx playwright test --project=mobile-chrome         # by project
    another test wrote.
 2. Every test gets a fresh browser context (Playwright default) — storage
    never leaks.
-3. Auth is reused via storage state, but the login *flow* has its own specs.
+3. Auth is reused via storage state, but the login _flow_ has its own specs.
 4. Multi-actor flows switch users inside one context (shared app data) via
    the `switchUser` helper — deliberate, not accidental sharing.
 

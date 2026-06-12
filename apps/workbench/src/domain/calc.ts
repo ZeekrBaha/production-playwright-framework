@@ -26,9 +26,7 @@ export function recalculate(values: ScenarioValues): ScenarioValues {
   for (const month of MONTHS) {
     const gmv = roundMoney(cell(values, "units", month) * cell(values, "aur", month));
     const netSales = roundMoney(gmv - cell(values, "returns", month));
-    const contributionMargin = roundMoney(
-      netSales - cell(values, "marketingSpend", month),
-    );
+    const contributionMargin = roundMoney(netSales - cell(values, "marketingSpend", month));
     result.gmv[month] = gmv;
     result.netSales[month] = netSales;
     result.contributionMargin[month] = contributionMargin;

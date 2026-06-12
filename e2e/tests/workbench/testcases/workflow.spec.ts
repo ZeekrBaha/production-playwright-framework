@@ -69,9 +69,7 @@ test.describe("Approval workflow", { tag: ["@workflow", "@regression"] }, () => 
     await test.step("inputter sees the comment and can edit again", async () => {
       await switchUser(page, pageFactory, USERS.inputter);
       await grid.goto(scenario.id);
-      await expect(grid.reviewCommentBanner).toContainText(
-        "Returns look too high in Q1",
-      );
+      await expect(grid.reviewCommentBanner).toContainText("Returns look too high in Q1");
       await expect(grid.cell("units", "2026-01")).toBeVisible();
     });
 
@@ -86,10 +84,7 @@ test.describe("Approval workflow", { tag: ["@workflow", "@regression"] }, () => 
 test.describe("Approval workflow — reviewer guards", { tag: ["@workflow", "@regression"] }, () => {
   test.use({ storageState: USERS.reviewer.storageState });
 
-  test("request changes requires a comment", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("request changes requires a comment", async ({ pageFactory, seedScenarios }) => {
     const scenario = buildScenario({
       name: "Comment Guard Spec",
       status: "IN_REVIEW",
@@ -100,9 +95,7 @@ test.describe("Approval workflow — reviewer guards", { tag: ["@workflow", "@re
     await grid.goto(scenario.id);
     await grid.requestChangesButton.click();
 
-    await expect(grid.banner).toHaveText(
-      "A comment is required when requesting changes",
-    );
+    await expect(grid.banner).toHaveText("A comment is required when requesting changes");
     await expect(grid.statusBadge).toHaveText("In review");
   });
 

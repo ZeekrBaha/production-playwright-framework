@@ -48,9 +48,9 @@ and runnable anywhere.
 
 ## Roles
 
-| User | Role | Permissions |
-|---|---|---|
-| `ines` | inputter | create / edit / copy / delete drafts, submit |
+| User   | Role     | Permissions                                      |
+| ------ | -------- | ------------------------------------------------ |
+| `ines` | inputter | create / edit / copy / delete drafts, submit     |
 | `ravi` | reviewer | open reviews read-only, approve, request changes |
 
 Password for both demo accounts: `demo123` (mock data, not a secret).

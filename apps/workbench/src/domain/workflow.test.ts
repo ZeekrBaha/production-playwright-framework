@@ -76,9 +76,7 @@ describe("applyWorkflowAction", () => {
   });
 
   it("request_changes without a comment throws", () => {
-    expect(() =>
-      applyWorkflowAction(scenario("IN_REVIEW"), "request_changes"),
-    ).toThrow(/comment/i);
+    expect(() => applyWorkflowAction(scenario("IN_REVIEW"), "request_changes")).toThrow(/comment/i);
   });
 
   it("rejects illegal transitions", () => {

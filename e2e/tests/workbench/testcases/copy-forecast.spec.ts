@@ -41,10 +41,7 @@ test.describe("Copy forecast", { tag: ["@workflow", "@regression"] }, () => {
     await expect(grid.activityItems.first()).toContainText("created this copy");
   });
 
-  test("rejects a duplicate copy name", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("rejects a duplicate copy name", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios([
       buildScenario({ name: "Source Plan" }),
       buildScenario({ name: "Existing Name" }),
@@ -55,16 +52,11 @@ test.describe("Copy forecast", { tag: ["@workflow", "@regression"] }, () => {
 
     const modal = pageFactory.copyForecastModal();
     await modal.copyAs("Existing Name");
-    await expect(modal.errorAlert).toHaveText(
-      "A forecast with this name already exists",
-    );
+    await expect(modal.errorAlert).toHaveText("A forecast with this name already exists");
     await expect(modal.dialog).toBeVisible();
   });
 
-  test("the copy clears the source's review comment", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("the copy clears the source's review comment", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios([
       buildScenario({
         name: "Rework Plan",

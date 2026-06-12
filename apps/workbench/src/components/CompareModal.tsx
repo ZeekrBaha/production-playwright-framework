@@ -18,9 +18,7 @@ function money(value: number): string {
 
 /** Read-only comparison of full-year totals against another forecast. */
 export function CompareModal({ scenario, onClose }: Props) {
-  const candidates = listScenarios(scenario.orgId).filter(
-    (s) => s.id !== scenario.id,
-  );
+  const candidates = listScenarios(scenario.orgId).filter((s) => s.id !== scenario.id);
   const [targetId, setTargetId] = useState("");
   const [target, setTarget] = useState<Scenario | null>(null);
   const [error, setError] = useState<string | null>(null);

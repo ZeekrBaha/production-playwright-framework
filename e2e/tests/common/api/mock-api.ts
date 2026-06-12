@@ -32,11 +32,7 @@ export async function failApi(
 }
 
 /** Delays matching requests by `ms` before letting them through. */
-export async function delayApi(
-  page: Page,
-  urlPattern: string,
-  ms: number,
-): Promise<void> {
+export async function delayApi(page: Page, urlPattern: string, ms: number): Promise<void> {
   await page.route(urlPattern, async (route) => {
     await new Promise((resolve) => setTimeout(resolve, ms));
     await route.continue();
@@ -47,10 +43,7 @@ export async function delayApi(
  * Records matching requests (and lets them through) so specs can assert
  * on method, URL, and JSON payload.
  */
-export async function captureApi(
-  page: Page,
-  urlPattern: string,
-): Promise<Request[]> {
+export async function captureApi(page: Page, urlPattern: string): Promise<Request[]> {
   const captured: Request[] = [];
   await page.route(urlPattern, async (route) => {
     captured.push(route.request());

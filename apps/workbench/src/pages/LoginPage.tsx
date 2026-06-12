@@ -50,8 +50,8 @@ export function LoginPage() {
           Sign in
         </button>
         <p className="login-hint">
-          Demo accounts: <code>ines</code> (inputter), <code>ravi</code>{" "}
-          (reviewer) — password <code>demo123</code>
+          Demo accounts: <code>ines</code> (inputter), <code>ravi</code> (reviewer) — password{" "}
+          <code>demo123</code>
         </p>
       </form>
     </div>

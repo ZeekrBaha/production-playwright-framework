@@ -45,7 +45,11 @@ export function DashboardPage() {
           <StatCard label="In review" testId="card-in-review" value={String(stats.inReview)} />
           <StatCard label="Approved" testId="card-approved" value={String(stats.approved)} />
           <StatCard label="Total GMV" testId="card-gmv" value={currency(stats.totalGmv)} />
-          <StatCard label="Total Net Sales" testId="card-net-sales" value={currency(stats.totalNetSales)} />
+          <StatCard
+            label="Total Net Sales"
+            testId="card-net-sales"
+            value={currency(stats.totalNetSales)}
+          />
         </div>
       )}
 
@@ -92,15 +96,7 @@ export function DashboardPage() {
   );
 }
 
-function StatCard({
-  label,
-  value,
-  testId,
-}: {
-  label: string;
-  value: string;
-  testId: string;
-}) {
+function StatCard({ label, value, testId }: { label: string; value: string; testId: string }) {
   return (
     <div className="card stat-card" data-testid={testId}>
       <span className="stat-label">{label}</span>

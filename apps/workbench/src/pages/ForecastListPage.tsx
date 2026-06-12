@@ -1,18 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  createForecastApi,
-  copyForecastApi,
-  deleteForecastApi,
-} from "../api/client";
+import { createForecastApi, copyForecastApi, deleteForecastApi } from "../api/client";
 import { CopyForecastModal } from "../components/CopyForecastModal";
 import { CreateForecastModal } from "../components/CreateForecastModal";
 import { StatusBadge } from "../components/StatusBadge";
-import {
-  DEFAULT_LIST_FILTER,
-  filterAndSortScenarios,
-  type ListFilter,
-} from "../domain/listing";
+import { DEFAULT_LIST_FILTER, filterAndSortScenarios, type ListFilter } from "../domain/listing";
 import { ORGANISATIONS } from "../domain/seed";
 import { getSession, listScenarios } from "../domain/store";
 import type { Scenario, ScenarioType } from "../domain/types";
@@ -50,11 +42,7 @@ export function ForecastListPage() {
   }
 
   async function handleCopy(newName: string) {
-    const copy = await copyForecastApi(
-      copySource!.id,
-      newName,
-      session?.username ?? "unknown",
-    );
+    const copy = await copyForecastApi(copySource!.id, newName, session?.username ?? "unknown");
     navigate(`/forecasts/${copy.id}`);
   }
 
@@ -79,11 +67,7 @@ export function ForecastListPage() {
         <h1>{org.name} forecasts</h1>
         <span className="spacer" />
         {isInputter && (
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => setShowCreate(true)}
-          >
+          <button type="button" className="btn btn-primary" onClick={() => setShowCreate(true)}>
             Create forecast
           </button>
         )}
@@ -110,9 +94,7 @@ export function ForecastListPage() {
           <select
             id="list-status"
             value={filter.status}
-            onChange={(e) =>
-              patchFilter({ status: e.target.value as ListFilter["status"] })
-            }
+            onChange={(e) => patchFilter({ status: e.target.value as ListFilter["status"] })}
           >
             <option value="ALL">All statuses</option>
             <option value="DRAFT">Draft</option>
@@ -126,9 +108,7 @@ export function ForecastListPage() {
           <select
             id="list-type"
             value={filter.type}
-            onChange={(e) =>
-              patchFilter({ type: e.target.value as ListFilter["type"] })
-            }
+            onChange={(e) => patchFilter({ type: e.target.value as ListFilter["type"] })}
           >
             <option value="ALL">All types</option>
             <option value="SANDBOX">Sandbox</option>
@@ -140,9 +120,7 @@ export function ForecastListPage() {
           <select
             id="list-sort"
             value={filter.sort}
-            onChange={(e) =>
-              patchFilter({ sort: e.target.value as ListFilter["sort"] })
-            }
+            onChange={(e) => patchFilter({ sort: e.target.value as ListFilter["sort"] })}
           >
             <option value="name">Name</option>
             <option value="updated">Recently updated</option>

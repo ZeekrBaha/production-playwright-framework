@@ -6,10 +6,7 @@ import {
 } from "../../common/fixtures/data-factory";
 
 test.describe("Add drivers", { tag: "@regression" }, () => {
-  test("search narrows the driver catalog", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("search narrows the driver catalog", async ({ pageFactory, seedScenarios }) => {
     const scenario = buildScenario({ name: "Driver Search Spec" });
     await seedScenarios([scenario]);
 
@@ -55,10 +52,7 @@ test.describe("Add drivers", { tag: "@regression" }, () => {
     },
   );
 
-  test("removing a driver hides its row", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("removing a driver hides its row", async ({ pageFactory, seedScenarios }) => {
     const scenario = buildScenario({ name: "Driver Remove Spec" });
     await seedScenarios([scenario]);
 

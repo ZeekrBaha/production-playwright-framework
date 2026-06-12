@@ -9,11 +9,7 @@ export interface DriverDef {
   description: string;
 }
 
-export type ScenarioStatus =
-  | "DRAFT"
-  | "IN_REVIEW"
-  | "APPROVED"
-  | "CHANGES_REQUESTED";
+export type ScenarioStatus = "DRAFT" | "IN_REVIEW" | "APPROVED" | "CHANGES_REQUESTED";
 
 export type ScenarioType = "SANDBOX" | "BUDGET";
 

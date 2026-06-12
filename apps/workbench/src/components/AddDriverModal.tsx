@@ -9,9 +9,7 @@ interface Props {
 
 export function AddDriverModal({ visibleDrivers, onApply, onCancel }: Props) {
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<Set<string>>(
-    new Set(visibleDrivers),
-  );
+  const [selected, setSelected] = useState<Set<string>>(new Set(visibleDrivers));
 
   const filtered = DRIVER_CATALOG.filter((d) =>
     d.label.toLowerCase().includes(search.trim().toLowerCase()),
@@ -29,9 +27,7 @@ export function AddDriverModal({ visibleDrivers, onApply, onCancel }: Props) {
 
   function handleApply() {
     // Preserve canonical catalog order regardless of click order.
-    const ordered = DRIVER_CATALOG.filter((d) => selected.has(d.key)).map(
-      (d) => d.key,
-    );
+    const ordered = DRIVER_CATALOG.filter((d) => selected.has(d.key)).map((d) => d.key);
     onApply(ordered);
   }
 

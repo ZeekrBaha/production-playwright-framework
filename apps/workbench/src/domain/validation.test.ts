@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  parseCellInput,
-  validateScenarioForSave,
-  validateScenarioName,
-} from "./validation";
+import { parseCellInput, validateScenarioForSave, validateScenarioName } from "./validation";
 import { MONTHS } from "./drivers";
 import { recalculate } from "./calc";
 import type { ScenarioValues } from "./types";
@@ -95,9 +91,7 @@ describe("validateScenarioName", () => {
   });
 
   it("rejects a duplicate name (case-insensitive)", () => {
-    expect(validateScenarioName("fy26 plan", ["FY26 Plan"])).toMatch(
-      /already exists/i,
-    );
+    expect(validateScenarioName("fy26 plan", ["FY26 Plan"])).toMatch(/already exists/i);
   });
 
   it("rejects names longer than 60 characters", () => {

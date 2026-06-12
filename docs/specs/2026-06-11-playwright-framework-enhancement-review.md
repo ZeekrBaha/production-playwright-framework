@@ -20,6 +20,7 @@ Recommended positioning:
 Path: `apps/workbench/`
 
 Stack:
+
 - Vite
 - React
 - TypeScript
@@ -28,12 +29,14 @@ Stack:
 - Vitest domain tests
 
 Main pages:
+
 - Login
 - Organisation selection
 - Forecast list
 - Forecast grid
 
 Business behavior:
+
 - Forecast scenario CRUD
 - inputter/reviewer roles
 - editable driver grid
@@ -42,6 +45,7 @@ Business behavior:
 - submit/approve/request-changes workflow
 
 Core domain files:
+
 - `apps/workbench/src/domain/calc.ts`
 - `apps/workbench/src/domain/validation.ts`
 - `apps/workbench/src/domain/workflow.ts`
@@ -52,6 +56,7 @@ Core domain files:
 Path: `e2e/`
 
 Current framework elements:
+
 - `playwright.config.ts` with webServer
 - setup project for UI login
 - saved storage state per role
@@ -65,6 +70,7 @@ Current framework elements:
 - robust locators using role/label/test id
 
 Important files:
+
 - `e2e/playwright.config.ts`
 - `e2e/tests/auth.setup.ts`
 - `e2e/tests/common/fixtures/test-hook.ts`
@@ -114,6 +120,7 @@ Full e2e execution was not rerun during this review to avoid modifying reports/t
 ### 1. The SUT is meaningful
 
 The app is not a toy counter/todo. Forecasting gives real workflows:
+
 - calculation rules
 - grid editing
 - validation
@@ -126,6 +133,7 @@ This is a good SUT for Playwright because it creates test scenarios that resembl
 ### 2. Domain logic is separated
 
 The business rules live in a pure domain layer and have unit tests. This is a good test-pyramid story:
+
 - fast unit tests for formulas and state machine rules
 - e2e tests for user-visible flows
 
@@ -150,6 +158,7 @@ The test data factory recomputes expected values separately from the app. This p
 ### 1. The framework is too small compared to the original IBG framework
 
 The original `ibg-testscripts-playwright` framework contains production-style features not yet represented in the new `e2e/` framework:
+
 - multiple FE/BE projects
 - API utilities
 - global setup/teardown
@@ -178,6 +187,7 @@ Better framing:
 ### 3. Repo boundary is messy
 
 The current folder mixes:
+
 - new portfolio project
 - legacy enterprise IBG repo
 - generated dist
@@ -192,6 +202,7 @@ This should not be published as-is.
 ### 4. Missing CI
 
 A QA automation portfolio project needs CI. Current project lacks a GitHub Actions workflow proving:
+
 - app typecheck
 - app unit tests
 - app build
@@ -202,6 +213,7 @@ A QA automation portfolio project needs CI. Current project lacks a GitHub Actio
 ### 5. Missing API/network layer
 
 Because the app is localStorage-only, the framework does not yet showcase:
+
 - `page.route`
 - API mocking
 - backend failure simulation
@@ -213,6 +225,7 @@ A production Playwright framework should include this.
 ### 6. Missing visual/a11y/mobile dimensions
 
 Current framework is desktop-only and functional-only. Recommended additions:
+
 - mobile project
 - visual smoke or screenshot comparison
 - accessibility smoke checks
@@ -221,6 +234,7 @@ Current framework is desktop-only and functional-only. Recommended additions:
 ### 7. Missing framework documentation depth
 
 Current docs explain the app and basic framework structure, but need deeper framework-first documentation:
+
 - framework architecture
 - test strategy
 - locator strategy
@@ -300,6 +314,7 @@ production-playwright-framework/
 ```
 
 Do not include:
+
 - `ibg-testscripts-playwright/`
 - `node_modules/`
 - `dist/`

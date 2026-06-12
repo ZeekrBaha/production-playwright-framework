@@ -14,13 +14,8 @@ test.describe("Grid input validation", { tag: ["@validation", "@regression"] }, 
     await grid.setCell("units", "2026-01", "-5");
     await grid.calculate();
 
-    await expect(grid.cellError("units", "2026-01")).toHaveText(
-      "Units cannot be negative",
-    );
-    await expect(grid.cell("units", "2026-01")).toHaveAttribute(
-      "aria-invalid",
-      "true",
-    );
+    await expect(grid.cellError("units", "2026-01")).toHaveText("Units cannot be negative");
+    await expect(grid.cell("units", "2026-01")).toHaveAttribute("aria-invalid", "true");
     await expect(grid.banner).toContainText("Fix the highlighted cells");
   });
 
@@ -36,9 +31,7 @@ test.describe("Grid input validation", { tag: ["@validation", "@regression"] }, 
     await grid.setCell("units", "2026-03", "10.5");
     await grid.calculate();
 
-    await expect(grid.cellError("units", "2026-03")).toHaveText(
-      "Units must be a whole number",
-    );
+    await expect(grid.cellError("units", "2026-03")).toHaveText("Units must be a whole number");
   });
 
   test("rejects zero AUR", async ({ pageFactory, seedScenarios }) => {
@@ -50,9 +43,7 @@ test.describe("Grid input validation", { tag: ["@validation", "@regression"] }, 
     await grid.setCell("aur", "2026-01", "0");
     await grid.calculate();
 
-    await expect(grid.cellError("aur", "2026-01")).toHaveText(
-      "AUR must be greater than 0",
-    );
+    await expect(grid.cellError("aur", "2026-01")).toHaveText("AUR must be greater than 0");
   });
 
   test("rejects non-numeric input", async ({ pageFactory, seedScenarios }) => {
@@ -64,9 +55,7 @@ test.describe("Grid input validation", { tag: ["@validation", "@regression"] }, 
     await grid.setCell("returns", "2026-04", "lots");
     await grid.calculate();
 
-    await expect(grid.cellError("returns", "2026-04")).toHaveText(
-      "Returns must be a number",
-    );
+    await expect(grid.cellError("returns", "2026-04")).toHaveText("Returns must be a number");
   });
 
   test(

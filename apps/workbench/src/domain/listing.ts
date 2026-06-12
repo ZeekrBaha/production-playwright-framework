@@ -21,10 +21,7 @@ const STATUS_ORDER: Record<ScenarioStatus, number> = {
   APPROVED: 3,
 };
 
-export function filterAndSortScenarios(
-  scenarios: Scenario[],
-  filter: ListFilter,
-): Scenario[] {
+export function filterAndSortScenarios(scenarios: Scenario[], filter: ListFilter): Scenario[] {
   const search = filter.search.trim().toLowerCase();
   const filtered = scenarios.filter((s) => {
     if (search && !s.name.toLowerCase().includes(search)) {

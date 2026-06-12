@@ -50,15 +50,10 @@ test.describe("Create forecast", { tag: "@regression" }, () => {
 
     const modal = pageFactory.createForecastModal();
     await modal.create("fy26 baseline");
-    await expect(modal.errorAlert).toHaveText(
-      "A forecast with this name already exists",
-    );
+    await expect(modal.errorAlert).toHaveText("A forecast with this name already exists");
   });
 
-  test("deletes a draft forecast after confirmation", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("deletes a draft forecast after confirmation", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios([buildScenario({ name: "Disposable Draft" })]);
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);
@@ -68,29 +63,21 @@ test.describe("Create forecast", { tag: "@regression" }, () => {
     await expect(list.rowByName("Disposable Draft")).toHaveCount(0);
   });
 
-  test("approved forecasts cannot be deleted", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
-    await seedScenarios([
-      buildScenario({ name: "Locked Plan", status: "APPROVED" }),
-    ]);
+  test("approved forecasts cannot be deleted", async ({ pageFactory, seedScenarios }) => {
+    await seedScenarios([buildScenario({ name: "Locked Plan", status: "APPROVED" })]);
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);
     await expect(list.rowByName("Locked Plan")).toBeVisible();
-    await expect(
-      list.rowByName("Locked Plan").getByRole("button", { name: "Delete" }),
-    ).toHaveCount(0);
+    await expect(list.rowByName("Locked Plan").getByRole("button", { name: "Delete" })).toHaveCount(
+      0,
+    );
   });
 });
 
 test.describe("Create forecast — reviewer permissions", { tag: "@regression" }, () => {
   test.use({ storageState: USERS.reviewer.storageState });
 
-  test("reviewers cannot create forecasts", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("reviewers cannot create forecasts", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios([buildScenario({ name: "Someone's Draft" })]);
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);

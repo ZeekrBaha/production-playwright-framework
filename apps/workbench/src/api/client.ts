@@ -81,10 +81,7 @@ export async function copyForecastApi(
   return copyScenario(sourceId, newName, actor);
 }
 
-export async function saveForecastApi(
-  scenario: Scenario,
-  actor: string,
-): Promise<Scenario> {
+export async function saveForecastApi(scenario: Scenario, actor: string): Promise<Scenario> {
   await apiFetch("PATCH", `/api/forecasts/${scenario.id}`, {
     scenarioId: scenario.id,
     values: scenario.values,
@@ -94,20 +91,14 @@ export async function saveForecastApi(
   return saved;
 }
 
-export async function calculateForecastApi(
-  scenarioId: string,
-  actor: string,
-): Promise<void> {
+export async function calculateForecastApi(scenarioId: string, actor: string): Promise<void> {
   await apiFetch("POST", `/api/forecasts/${scenarioId}/calculate`, {
     scenarioId,
   });
   recordActivity({ scenarioId, type: "calculated", actor });
 }
 
-export async function submitForecastApi(
-  scenario: Scenario,
-  actor: string,
-): Promise<Scenario> {
+export async function submitForecastApi(scenario: Scenario, actor: string): Promise<Scenario> {
   await apiFetch("POST", `/api/forecasts/${scenario.id}/submit`, {
     scenarioId: scenario.id,
     targetStatus: "IN_REVIEW",
@@ -117,10 +108,7 @@ export async function submitForecastApi(
   return saved;
 }
 
-export async function approveForecastApi(
-  scenario: Scenario,
-  actor: string,
-): Promise<Scenario> {
+export async function approveForecastApi(scenario: Scenario, actor: string): Promise<Scenario> {
   await apiFetch("POST", `/api/forecasts/${scenario.id}/approve`, {
     scenarioId: scenario.id,
     targetStatus: "APPROVED",
@@ -140,9 +128,7 @@ export async function requestChangesApi(
     targetStatus: "CHANGES_REQUESTED",
     comment,
   });
-  const saved = updateScenario(
-    applyWorkflowAction(scenario, "request_changes", comment),
-  );
+  const saved = updateScenario(applyWorkflowAction(scenario, "request_changes", comment));
   recordActivity({
     scenarioId: scenario.id,
     type: "changes_requested",

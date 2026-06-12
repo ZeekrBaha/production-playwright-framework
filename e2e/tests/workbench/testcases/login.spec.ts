@@ -14,23 +14,17 @@ test.describe("Login", { tag: "@regression" }, () => {
       await loginPage.login(USERS.inputter.username, USERS.inputter.password);
 
       await expect(pageFactory.dashboard().heading).toBeVisible();
-      await expect(page.getByTestId("user-chip")).toContainText(
-        USERS.inputter.displayName,
-      );
+      await expect(page.getByTestId("user-chip")).toContainText(USERS.inputter.displayName);
       await expect(page.getByTestId("role-badge")).toHaveText("inputter");
     },
   );
 
-  test("invalid credentials show an error and stay on login", async ({
-    pageFactory,
-  }) => {
+  test("invalid credentials show an error and stay on login", async ({ pageFactory }) => {
     const loginPage = pageFactory.login();
     await loginPage.goto();
     await loginPage.login("ines", "wrong-password");
 
-    await expect(loginPage.errorAlert).toHaveText(
-      "Invalid username or password",
-    );
+    await expect(loginPage.errorAlert).toHaveText("Invalid username or password");
     await expect(loginPage.signInButton).toBeVisible();
   });
 

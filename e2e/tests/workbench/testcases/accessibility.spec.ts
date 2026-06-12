@@ -9,10 +9,7 @@ import { buildScenario } from "../../common/fixtures/data-factory";
 test.describe("Accessibility — login", { tag: ["@accessibility", "@regression"] }, () => {
   test.use({ storageState: NO_AUTH });
 
-  test("login form is labelled and fully keyboard operable", async ({
-    page,
-    pageFactory,
-  }) => {
+  test("login form is labelled and fully keyboard operable", async ({ page, pageFactory }) => {
     const loginPage = pageFactory.login();
     await loginPage.goto();
 
@@ -51,9 +48,7 @@ test.describe("Accessibility — app semantics", { tag: ["@accessibility", "@reg
     await list.createForecastButton.click();
 
     const modal = pageFactory.createForecastModal();
-    await expect(
-      page.getByRole("dialog", { name: "Create forecast" }),
-    ).toBeVisible();
+    await expect(page.getByRole("dialog", { name: "Create forecast" })).toBeVisible();
 
     await modal.createButton.click();
     await expect(modal.errorAlert).toBeVisible();
@@ -74,8 +69,6 @@ test.describe("Accessibility — app semantics", { tag: ["@accessibility", "@reg
     const grid = pageFactory.forecastGrid();
     await grid.goto(scenario.id);
     await expect(page.getByRole("table", { name: "Forecast grid" })).toBeVisible();
-    await expect(
-      page.getByLabel("Units Jan 26"),
-    ).toBeVisible();
+    await expect(page.getByLabel("Units Jan 26")).toBeVisible();
   });
 });

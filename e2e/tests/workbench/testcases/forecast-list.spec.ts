@@ -24,10 +24,7 @@ function seedSet() {
 }
 
 test.describe("Forecast list filters", { tag: "@regression" }, () => {
-  test("search matches names case-insensitively", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("search matches names case-insensitively", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios(seedSet());
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);
@@ -37,10 +34,7 @@ test.describe("Forecast list filters", { tag: "@regression" }, () => {
     await expect(list.rowByName("beta budget")).toBeVisible();
   });
 
-  test("status filter narrows the list", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("status filter narrows the list", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios(seedSet());
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);
@@ -50,10 +44,7 @@ test.describe("Forecast list filters", { tag: "@regression" }, () => {
     await expect(list.rowByName("Gamma Push")).toBeVisible();
   });
 
-  test("sorting by most recently updated reorders rows", async ({
-    pageFactory,
-    seedScenarios,
-  }) => {
+  test("sorting by most recently updated reorders rows", async ({ pageFactory, seedScenarios }) => {
     await seedScenarios(seedSet());
     const list = pageFactory.forecastList();
     await list.goto(ORG.id);

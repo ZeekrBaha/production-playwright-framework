@@ -19,14 +19,17 @@ export const test = base.extend<Fixtures>({
 
   seedScenarios: async ({ page }, use) => {
     await use(async (scenarios) => {
-      await page.addInitScript((data) => {
-        // The init script runs on every navigation; the marker makes the
-        // injection one-shot so in-test saves survive page reloads.
-        if (!window.localStorage.getItem("fw:e2e-seeded")) {
-          window.localStorage.setItem("fw:data", JSON.stringify(data));
-          window.localStorage.setItem("fw:e2e-seeded", "1");
-        }
-      }, { scenarios });
+      await page.addInitScript(
+        (data) => {
+          // The init script runs on every navigation; the marker makes the
+          // injection one-shot so in-test saves survive page reloads.
+          if (!window.localStorage.getItem("fw:e2e-seeded")) {
+            window.localStorage.setItem("fw:data", JSON.stringify(data));
+            window.localStorage.setItem("fw:e2e-seeded", "1");
+          }
+        },
+        { scenarios },
+      );
     });
   },
 });
