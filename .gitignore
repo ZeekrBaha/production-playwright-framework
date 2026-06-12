@@ -1,6 +1,7 @@
 node_modules/
 dist/
 playwright-report/
+playwright-snapshots/
 test-results/
 blob-report/
 .auth/

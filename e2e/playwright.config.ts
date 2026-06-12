@@ -22,6 +22,7 @@ export default defineConfig({
     ? [["list"], ["github"], ["html", { open: "never" }]]
     : [["list"], ["html", { open: "never" }]],
   timeout: 30_000,
+  snapshotPathTemplate: "{testFileDir}/{testFileName}-snapshots/{arg}{ext}",
   expect: {
     timeout: 5_000,
   },

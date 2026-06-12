@@ -36,6 +36,13 @@ describe("loadData", () => {
     localStorage.setItem("fw:data", JSON.stringify({ scenarios: [] }));
     expect(loadData().activities).toEqual([]);
   });
+
+  it("falls back to empty arrays when stored values are not arrays", () => {
+    localStorage.setItem("fw:data", JSON.stringify({ scenarios: "corrupted", activities: null }));
+    const data = loadData();
+    expect(Array.isArray(data.scenarios)).toBe(true);
+    expect(Array.isArray(data.activities)).toBe(true);
+  });
 });
 
 describe("copyScenario", () => {

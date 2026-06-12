@@ -14,8 +14,8 @@ export function loadData(): AppData {
     try {
       const parsed = JSON.parse(raw) as Partial<AppData>;
       return {
-        scenarios: parsed.scenarios ?? [],
-        activities: parsed.activities ?? [],
+        scenarios: Array.isArray(parsed.scenarios) ? parsed.scenarios : [],
+        activities: Array.isArray(parsed.activities) ? parsed.activities : [],
       };
     } catch {
       // fall through to reseed on corrupt data
