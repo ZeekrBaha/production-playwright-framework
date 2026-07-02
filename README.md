@@ -66,6 +66,19 @@ Demo accounts (mock data, not secrets): `ines` (inputter), `ravi`
 > checked client-side, sessions stored in `localStorage`. This is by design for an
 > isolated local demo with fake data. Never use this pattern in a real application.
 
+## Screenshots
+
+These are the same baseline images the `@visual` Playwright suite asserts against
+(`e2e/tests/workbench/testcases/visual.spec.ts-snapshots/`).
+
+| Dashboard | Forecast list |
+|---|---|
+| ![Dashboard](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/dashboard.png) | ![Forecast list](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/forecast-list.png) |
+
+| Forecast grid (approved, read-only) |
+|---|
+| ![Forecast grid](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/forecast-grid-approved.png) |
+
 ## Quick start
 
 ```bash
