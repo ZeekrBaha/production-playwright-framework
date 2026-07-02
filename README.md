@@ -71,12 +71,12 @@ Demo accounts (mock data, not secrets): `ines` (inputter), `ravi`
 These are the same baseline images the `@visual` Playwright suite asserts against
 (`e2e/tests/workbench/testcases/visual.spec.ts-snapshots/`).
 
-| Dashboard | Forecast list |
-|---|---|
+| Dashboard                                                                          | Forecast list                                                                              |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | ![Dashboard](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/dashboard.png) | ![Forecast list](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/forecast-list.png) |
 
-| Forecast grid (approved, read-only) |
-|---|
+| Forecast grid (approved, read-only)                                                                 |
+| --------------------------------------------------------------------------------------------------- |
 | ![Forecast grid](e2e/tests/workbench/testcases/visual.spec.ts-snapshots/forecast-grid-approved.png) |
 
 ## Quick start
