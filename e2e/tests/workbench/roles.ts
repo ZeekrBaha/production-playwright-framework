@@ -1,6 +1,6 @@
 import { expect, Page } from "@playwright/test";
-import { PageFactory } from "../pages/page-factory";
-import type { TestUser } from "../config/test-env";
+import { PageFactory } from "./page-factory";
+import type { TestUser } from "../common/config/test-env";
 
 /**
  * Signs the current user out and logs in as another mock user within the

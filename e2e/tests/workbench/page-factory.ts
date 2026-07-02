@@ -1,13 +1,13 @@
 import { Page } from "@playwright/test";
-import { AddDriverModal } from "../../workbench/pages/add-driver.modal";
-import { CompareModal } from "../../workbench/pages/compare.modal";
-import { CopyForecastModal } from "../../workbench/pages/copy-forecast.modal";
-import { CreateForecastModal } from "../../workbench/pages/create-forecast.modal";
-import { DashboardPage } from "../../workbench/pages/dashboard.page";
-import { ForecastGridPage } from "../../workbench/pages/forecast-grid.page";
-import { ForecastListPage } from "../../workbench/pages/forecast-list.page";
-import { LoginPage } from "../../workbench/pages/login.page";
-import { OrgSelectionPage } from "../../workbench/pages/org-selection.page";
+import { AddDriverModal } from "./pages/add-driver.modal";
+import { CompareModal } from "./pages/compare.modal";
+import { CopyForecastModal } from "./pages/copy-forecast.modal";
+import { CreateForecastModal } from "./pages/create-forecast.modal";
+import { DashboardPage } from "./pages/dashboard.page";
+import { ForecastGridPage } from "./pages/forecast-grid.page";
+import { ForecastListPage } from "./pages/forecast-list.page";
+import { LoginPage } from "./pages/login.page";
+import { OrgSelectionPage } from "./pages/org-selection.page";
 
 /** Single entry point to every page object, mirroring the page under test. */
 export class PageFactory {

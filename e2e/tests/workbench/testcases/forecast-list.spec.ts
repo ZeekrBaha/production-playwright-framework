@@ -1,4 +1,4 @@
-import { expect, test } from "../../common/fixtures/test-hook";
+import { expect, test } from "../test-hook";
 import { buildScenario } from "../../common/fixtures/data-factory";
 
 const ORG = { id: "org-merch", name: "Merchandising" };

@@ -1,7 +1,7 @@
-import { expect, test } from "../../common/fixtures/test-hook";
+import { expect, test } from "../test-hook";
 import { USERS } from "../../common/fixtures/auth";
 import { buildScenario } from "../../common/fixtures/data-factory";
-import { switchUser } from "../../common/fixtures/roles";
+import { switchUser } from "../roles";
 
 test.describe("Approval workflow", { tag: ["@workflow", "@regression"] }, () => {
   test(
