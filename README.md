@@ -32,13 +32,14 @@ e2e/
     ├── common/                     framework layer
     │   ├── config/test-env.ts      typed environment (base URL, CI, users)
     │   ├── api/mock-api.ts         network interception: fail / delay / capture
-    │   ├── fixtures/test-hook.ts   test.extend: pageFactory + seedScenarios
-    │   ├── fixtures/data-factory.ts  builders, named presets, independent oracle
-    │   ├── fixtures/roles.ts       multi-actor user switching
-    │   └── pages/page-factory.ts   single entry point to all page objects
+    │   ├── fixtures/test-hook.ts   test.extend: seedScenarios
+    │   └── fixtures/data-factory.ts  builders, named presets, independent oracle
     └── workbench/                  application layer
+        ├── page-factory.ts         single entry point to all page objects
+        ├── test-hook.ts            test.extend: adds pageFactory to common fixtures
+        ├── roles.ts                multi-actor user switching
         ├── pages/                  one page object per screen/modal (9)
-        └── testcases/              16 spec files, 60 tests
+        └── testcases/              16 spec files, 61 tests
 ```
 
 Deep dives: [framework architecture](docs/framework-architecture.md) ·
@@ -90,7 +91,7 @@ cd apps/workbench && npm run dev    # http://localhost:5173
 | `npm run test:unit`    | 58 Vitest tests on the domain layer                      |
 | `npm run build`        | Production Vite build                                    |
 | `npm run test:smoke`   | `@smoke` paths on desktop + mobile projects              |
-| `npm run test:e2e`     | Full Playwright suite (60 tests, @visual excluded in CI) |
+| `npm run test:e2e`     | Full Playwright suite (61 tests, @visual excluded in CI) |
 
 Inside `e2e/`: `npm run test:ui` (UI mode), `npm run test:headed`,
 `npm run report`, or any tag slice, e.g.
@@ -143,10 +144,11 @@ workflow, listing, dashboard, store) — written test-first.
 ## CI and reporting
 
 GitHub Actions (`.github/workflows/ci.yml`): install → lint → format:check →
-typecheck → unit tests → build → Playwright e2e (57 tests — full suite minus
-3 `@visual`, which use platform-specific baselines) → HTML report uploaded
-always, traces/videos on failure. SHA-pinned actions throughout. `npm run check`
-mirrors the pipeline locally. Details in [docs/ci-and-reporting.md](docs/ci-and-reporting.md).
+typecheck → unit tests → build → Playwright e2e against the production bundle
+via `vite preview` (58 tests — full suite minus 3 `@visual`, which use
+platform-specific baselines) → blocking `npm audit` (root, app, e2e) →
+HTML report uploaded always, traces/videos on failure. SHA-pinned actions
+throughout. `npm run check` mirrors the pipeline locally. Details in [docs/ci-and-reporting.md](docs/ci-and-reporting.md).
 
 ## Portfolio / interview talking points
 
