@@ -60,10 +60,11 @@ jobs:
       - name: Playwright e2e tests (visual tests excluded — baselines are platform-specific)
         run: npm run test:ci --prefix e2e
 
-      - name: Audit dependencies (advisory)
+      - name: Audit dependencies (blocking, high severity)
         run: |
-          npm audit --audit-level=high --prefix apps/workbench || true
-          npm audit --audit-level=high --prefix e2e || true
+          npm audit --audit-level=high
+          npm audit --audit-level=high --prefix apps/workbench
+          npm audit --audit-level=high --prefix e2e
 
       - name: Upload Playwright report
         if: always()

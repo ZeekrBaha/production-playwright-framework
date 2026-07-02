@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { test } from "../../common/fixtures/test-hook";
+import { test } from "../test-hook";
 import { buildScenario } from "../../common/fixtures/data-factory";
 
 test.describe("Visual baselines", { tag: ["@visual"] }, () => {

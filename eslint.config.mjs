@@ -51,5 +51,12 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    // PageFactory is the sanctioned instantiation point for page objects.
+    files: ["e2e/tests/workbench/page-factory.ts"],
+    rules: {
+      "no-restricted-syntax": "off",
+    },
+  },
   prettier,
 );

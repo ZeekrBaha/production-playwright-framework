@@ -1,4 +1,4 @@
-import { expect, test } from "../../common/fixtures/test-hook";
+import { expect, test } from "../test-hook";
 import { USERS } from "../../common/fixtures/auth";
 import { API_ROUTES, captureApi, delayApi, failApi } from "../../common/api/mock-api";
 import { asCurrency, buildScenario, expectedGmv } from "../../common/fixtures/data-factory";

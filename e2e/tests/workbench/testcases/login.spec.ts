@@ -1,4 +1,4 @@
-import { expect, test } from "../../common/fixtures/test-hook";
+import { expect, test } from "../test-hook";
 import { NO_AUTH, USERS } from "../../common/fixtures/auth";
 
 test.describe("Login", { tag: "@regression" }, () => {

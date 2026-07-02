@@ -1,4 +1,4 @@
-import { expect, test as setup } from "./common/fixtures/test-hook";
+import { expect, test as setup } from "./workbench/test-hook";
 import { USERS } from "./common/fixtures/auth";
 
 /**

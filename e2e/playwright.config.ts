@@ -22,7 +22,7 @@ export default defineConfig({
     ? [["list"], ["github"], ["html", { open: "never" }]]
     : [["list"], ["html", { open: "never" }]],
   timeout: 30_000,
-  snapshotPathTemplate: "{testFileDir}/{testFileName}-snapshots/{arg}{ext}",
+  snapshotPathTemplate: "{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}",
   expect: {
     timeout: 5_000,
   },
@@ -33,7 +33,11 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: "npm run dev --prefix ../apps/workbench",
+    // CI serves the production bundle (built earlier in the pipeline);
+    // locally the dev server keeps the edit-refresh loop.
+    command: testEnv.isCI
+      ? "npm run preview --prefix ../apps/workbench -- --port 5173 --strictPort"
+      : "npm run dev --prefix ../apps/workbench",
     url: testEnv.baseUrl,
     reuseExistingServer: !testEnv.isCI,
     timeout: 60_000,

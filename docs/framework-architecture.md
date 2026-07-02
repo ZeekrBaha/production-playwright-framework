@@ -12,20 +12,22 @@ playwright.config.ts          runtime topology: projects, webServer, artifacts
     ├── common/               ── framework layer (SUT-agnostic patterns) ──
     │   ├── config/test-env.ts        typed environment (base URL, CI, users)
     │   ├── api/mock-api.ts           network interception helpers
-    │   ├── fixtures/test-hook.ts     test.extend: pageFactory, seedScenarios
+    │   ├── fixtures/test-hook.ts     test.extend: seedScenarios
     │   ├── fixtures/data-factory.ts  builders, presets, independent oracle
-    │   ├── fixtures/roles.ts         multi-actor user switching
-    │   ├── fixtures/auth.ts          role access (re-exports test-env users)
-    │   └── pages/page-factory.ts     single entry point to page objects
+    │   └── fixtures/auth.ts          role access (re-exports test-env users)
     └── workbench/            ── application layer (SUT-specific) ──
+        ├── page-factory.ts           single entry point to page objects
+        ├── test-hook.ts              test.extend: adds pageFactory
+        ├── roles.ts                  multi-actor user switching
         ├── pages/                    one page object per screen/modal
         └── testcases/                spec files, tag-routed into suites
 ```
 
 Dependency rule: specs depend on page objects and fixtures; page objects
 depend only on Playwright; fixtures depend on config. Nothing in `common/`
-imports from `workbench/` except the page factory, which is the composition
-point.
+imports from `workbench/` — the application layer extends the framework's
+base test with the page factory at its own composition point
+(`workbench/test-hook.ts`).
 
 ## Project graph
 

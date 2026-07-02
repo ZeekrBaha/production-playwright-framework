@@ -1,4 +1,4 @@
-import { expect, test } from "../../common/fixtures/test-hook";
+import { expect, test } from "../test-hook";
 import { NO_AUTH, USERS } from "../../common/fixtures/auth";
 import { buildScenario } from "../../common/fixtures/data-factory";
 import AxeBuilder from "@axe-core/playwright";
