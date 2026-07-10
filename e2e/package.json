@@ -20,6 +20,6 @@
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^7.0.2"
   }
 }
